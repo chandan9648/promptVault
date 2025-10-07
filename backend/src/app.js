@@ -17,15 +17,7 @@ app.use(cors({ origin: process.env.CLIENT_ORIGIN || '*', credentials: true }));
 app.use(morgan('dev'));
 app.use(helmet());
 
-// // Health check
-// app.get('/health', (req, res) => {
-//   res.json({ status: 'ok', time: new Date().toISOString() });
-// });
 
-// // Base route
-// app.get('/', (req, res) => {
-//   res.send('PromptVault API');
-// });
 
 // Routes
 app.use('/api/auth', authRoutes);

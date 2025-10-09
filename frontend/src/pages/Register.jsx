@@ -27,7 +27,7 @@ const Register = () => {
   };
 
   return (
-    <div className="mx-auto max-w-md p-6 bg-white rounded-lg shadow mt-10">
+    <div className="mx-auto max-w-md p-6 bg-white rounded-lg shadow-lg mt-10">
       <h1 className="text-2xl font-semibold mb-4">Create account</h1>
       <form onSubmit={onSubmit} className="space-y-4">
         <Input label="Name" value={name} onChange={(e) => setName(e.target.value)} required minLength={2} />

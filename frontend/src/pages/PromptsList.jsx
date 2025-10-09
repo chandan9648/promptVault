@@ -4,16 +4,19 @@ import { api } from '../lib/api';
 import { Button, Input, Tag } from '../components/ui';
 import ExportBar from '../components/ExportBar';
 
+
+
+// Prompt card component
 const PromptCard = ({ p, onDelete, onPublishToggle }) => (
-  <div className="border rounded-lg p-4 bg-white shadow-sm">
+  <div className=" rounded-lg p-4  shadow-sm bg-gray-100">
     <div className="flex items-start justify-between">
       <div>
-        <Link to={`/prompts/${p._id}`} className="font-semibold text-lg hover:underline">{p.title}</Link>
+        <Link to={`/prompts/${p._id}`} className="font-semibold text-lg text-blue-600 underline">{p.title}</Link>
         {p.description && <p className="text-sm text-gray-600 mt-1">{p.description}</p>}
       </div>
       <div className="flex items-center gap-2">
-        <Link to={`/prompts/${p._id}/edit`} className="text-blue-600 text-sm">Edit</Link>
-        <button onClick={() => onDelete(p)} className="text-red-600 text-sm">Delete</button>
+        <Link to={`/prompts/${p._id}/edit`} className="text-blue-600 text-sm cursor-pointer">Edit</Link>
+        <button onClick={() => onDelete(p)} className="text-red-600 text-sm cursor-pointer  ">Delete</button>
       </div>
     </div>
     <div className="mt-2 flex flex-wrap">
@@ -29,6 +32,7 @@ const PromptCard = ({ p, onDelete, onPublishToggle }) => (
   </div>
 );
 
+//MAIN COMPONENT
 const PromptsList = () => {
   const [items, setItems] = useState([]);
   const [q, setQ] = useState('');
@@ -49,7 +53,7 @@ const PromptsList = () => {
 
   useEffect(() => {
     load();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+   
   }, []);
 
   const onDelete = async (p) => {
@@ -66,24 +70,25 @@ const PromptsList = () => {
 
   const uniqueTags = useMemo(() => Array.from(new Set(items.flatMap((i) => i.tags || []))), [items]);
 
+  //MY PROMPTS PAGE
   return (
     <div className="max-w-6xl mx-auto p-4">
       <div className="flex items-center justify-between mb-4">
-        <h1 className="text-2xl font-semibold">My Prompts</h1>
+        <h1 className="text-2xl font-semibold ">My Prompts</h1>
         <div className="flex items-center gap-2">
           <ExportBar selectedIds={Object.keys(selected).filter((k) => selected[k])} />
-          <Button onClick={() => nav('/prompts/new')}>New Prompt</Button>
+          <Button className='cursor-pointer shadow-sm' onClick={() => nav('/prompts/new')}>New Prompt</Button>
         </div>
       </div>
       <div className="grid grid-cols-1 md:grid-cols-3 gap-3 mb-4">
         <Input placeholder="Search…" value={q} onChange={(e) => setQ(e.target.value)} />
-        <select className="border rounded-md px-3" value={tag} onChange={(e) => setTag(e.target.value)}>
+        <select className="shadow-sm rounded-md px-3" value={tag} onChange={(e) => setTag(e.target.value)}>
           <option value="">All tags</option>
           {uniqueTags.map((t) => (
             <option key={t} value={t}>{t}</option>
           ))}
         </select>
-        <Button variant="secondary" onClick={load}>Apply</Button>
+        <Button className='cursor-pointer shadow-sm' variant="secondary" onClick={load}>Apply</Button>
       </div>
       {loading ? (
         <div>Loading…</div>

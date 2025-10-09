@@ -42,22 +42,22 @@ const Community = () => {
       <h1 className="text-2xl font-semibold mb-4">Community</h1>
       <div className="grid grid-cols-1 md:grid-cols-4 gap-3 mb-4">
         <Input placeholder="Search…" value={q} onChange={(e) => setQ(e.target.value)} />
-        <select className="border rounded-md px-3" value={tag} onChange={(e) => setTag(e.target.value)}>
+        <select className="shadow-sm rounded-md px-3" value={tag} onChange={(e) => setTag(e.target.value)}>
           <option value="">All tags</option>
           {uniqueTags.map((t) => <option key={t} value={t}>{t}</option>)}
         </select>
-        <select className="border rounded-md px-3" value={sort} onChange={(e) => setSort(e.target.value)}>
+        <select className="shadow-sm rounded-md px-3" value={sort} onChange={(e) => setSort(e.target.value)}>
           <option value="trending">Trending</option>
           <option value="new">Newest</option>
         </select>
-        <Button variant="secondary" onClick={load}>Apply</Button>
+        <Button className='cursor-pointer' variant="secondary" onClick={load}>Apply</Button>
       </div>
       {loading ? (
         <div>Loading…</div>
       ) : items.length ? (
         <div className="grid gap-3">
           {items.map((p) => (
-            <div key={p._id} className="border rounded-lg p-4 bg-white shadow-sm">
+            <div key={p._id} className=" rounded-lg p-4 bg-gray-100 shadow-sm">
               <div className="flex items-start justify-between">
                 <div>
                   <div className="font-semibold text-lg">{p.title}</div>

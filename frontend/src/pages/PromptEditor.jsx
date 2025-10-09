@@ -43,6 +43,7 @@ const PromptEditor = () => {
     }
   };
 
+  //EDIT PROMPT PAGE
   return (
     <div className="max-w-3xl mx-auto p-4">
       <h1 className="text-2xl font-semibold mb-4">{editing ? 'Edit' : 'New'} Prompt</h1>
@@ -56,9 +57,9 @@ const PromptEditor = () => {
           <Input label="Folder" value={form.folder} onChange={(e) => update('folder', e.target.value)} />
         </div>
         {error && <div className="text-sm text-red-600">{error}</div>}
-        <div className="flex gap-2">
-          <Button type="submit">Save</Button>
-          <Button type="button" variant="secondary" onClick={() => nav(-1)}>Cancel</Button>
+        <div className="flex gap-2 ">
+          <Button className='cursor-pointer'  type="submit">Save</Button>
+          <Button className='bg-red-400 cursor-pointer' type="button" variant="secondary" onClick={() => nav(-1)}>Cancel</Button>
         </div>
       </form>
     </div>

@@ -18,7 +18,7 @@ const PromptDetail = () => {
     }
   };
 
-  useEffect(() => { load(); // eslint-disable-next-line
+  useEffect(() => { load(); 
   }, [id]);
 
   const togglePub = async () => {
@@ -37,7 +37,7 @@ const PromptDetail = () => {
           <h1 className="text-2xl font-semibold">{p.title}</h1>
           {p.description && <p className="text-gray-600 mt-1">{p.description}</p>}
         </div>
-        <div className="flex gap-2">
+        <div className="flex gap-4">
           <Link to={`/prompts/${p._id}/edit`} className="text-blue-600">Edit</Link>
           <Button variant="secondary" onClick={() => nav('/prompts')}>Back</Button>
         </div>
@@ -48,7 +48,7 @@ const PromptDetail = () => {
         {p.folder && <Tag>{p.folder}</Tag>}
         {p.isPublic && <Tag>Public</Tag>}
       </div>
-      <div className="mt-6 whitespace-pre-wrap bg-white p-6 rounded-lg shadow border">
+      <div className="mt-6 whitespace-pre-wrap bg-gray-100 p-6 rounded-lg shadow-sm">
         {p.text}
       </div>
       <div className="mt-4">

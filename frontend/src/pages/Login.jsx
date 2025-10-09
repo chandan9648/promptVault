@@ -2,6 +2,9 @@ import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { useAuth } from '../context/useAuth';
 import { Input, Button } from '../components/ui';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 
 const Login = () => {
   const { login, loading } = useAuth();
@@ -14,8 +17,13 @@ const Login = () => {
     e.preventDefault();
     setError('');
     const res = await login(email, password);
-    if (res.ok) nav('/prompts');
-    else setError(res.message);
+    if (res.ok) {
+      nav('/prompts');
+      toast.success('Logged in successfully!');
+    } else {
+      setError(res.message);
+      toast.error(res.message || 'Login failed');
+    }
   };
 
   return (
@@ -28,6 +36,7 @@ const Login = () => {
         <Button type="submit" disabled={loading}>{loading ? 'Signing in…' : 'Login'}</Button>
       </form>
       <p className="text-sm text-gray-600 mt-4">No account? <Link to="/register" className="text-blue-600">Register</Link></p>
+    
     </div>
   );
 };

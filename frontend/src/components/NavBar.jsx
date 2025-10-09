@@ -6,7 +6,7 @@ const NavBar = () => {
   const { user, logout } = useAuth();
   const linkCls = ({ isActive }) => `px-3 py-2 rounded-md text-sm font-medium ${isActive ? 'bg-blue-600 text-white' : 'text-gray-700 hover:bg-gray-100'}`;
   return (
-    <header className="border-b bg-white sticky top-0 z-20">
+    <header className=" shadow-sm bg-white sticky top-0 z-20">
       <div className="mx-auto max-w-6xl px-4 h-14 flex items-center justify-between">
         <Link to="/" className="font-semibold text-lg">PromptVault</Link>
         <nav className="flex items-center gap-2">

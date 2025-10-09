@@ -3,7 +3,7 @@ import { useNavigate, Link } from 'react-router-dom';
 import { useAuth } from '../context/useAuth';
 import { Input, Button } from '../components/ui';
 import { toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+
 
 const Register = () => {
   const { register, loading } = useAuth();

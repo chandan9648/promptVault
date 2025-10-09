@@ -9,6 +9,7 @@ import PromptDetail from './pages/PromptDetail';
 import Community from './pages/Community';
 import { AuthProvider } from './context/AuthProvider';
 import { useAuth } from './context/useAuth';
+import { ToastContainer } from 'react-toastify';
 
 const ProtectedRoute = ({ children }) => {
   const { user } = useAuth();
@@ -19,6 +20,7 @@ const App = () => {
   return (
     <BrowserRouter>
       <AuthProvider>
+        <ToastContainer />
         <div className="min-h-screen bg-gray-50">
           <NavBar />
           <main className="py-6">

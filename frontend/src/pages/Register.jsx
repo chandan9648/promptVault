@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { useAuth } from '../context/useAuth';
 import { Input, Button } from '../components/ui';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const Register = () => {
   const { register, loading } = useAuth();
@@ -15,8 +17,13 @@ const Register = () => {
     e.preventDefault();
     setError('');
     const res = await register(name, email, password);
-    if (res.ok) nav('/prompts');
-    else setError(res.message);
+    if (res.ok) {
+      nav('/prompts');
+      toast.success('Registered successfully!');
+    } else {
+      setError(res.message);
+      toast.error(res.message || 'Registration failed');
+    }
   };
 
   return (

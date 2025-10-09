@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { api } from '../lib/api';
-import { Button, Input, Tag } from '../components/ui';
+import { Button, Input, Tag, Select } from '../components/ui';
 import { useAuth } from '../context/useAuth';
 
 const Community = () => {
@@ -40,17 +40,27 @@ const Community = () => {
   return (
     <div className="max-w-6xl mx-auto p-4 overflow-x-hidden">
       <h1 className="text-2xl font-semibold mb-4">Community</h1>
-      <div className="grid grid-cols-1 md:grid-cols-4 gap-3 mb-4">
-        <Input placeholder="Search…" value={q} onChange={(e) => setQ(e.target.value)} />
-        <select className="shadow-sm rounded-md px-3" value={tag} onChange={(e) => setTag(e.target.value)}>
-          <option value="">All tags</option>
-          {uniqueTags.map((t) => <option key={t} value={t}>{t}</option>)}
-        </select>
-        <select className="shadow-sm rounded-md px-3" value={sort} onChange={(e) => setSort(e.target.value)}>
-          <option value="trending">Trending</option>
-          <option value="new">Newest</option>
-        </select>
-        <Button className='cursor-pointer' variant="secondary" onClick={load}>Apply</Button>
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3 mb-4 overflow-hidden">
+        <div className="min-w-0">
+          <Input placeholder="Search…" value={q} onChange={(e) => setQ(e.target.value)} />
+        </div>
+        <div className="min-w-0">
+          <Select
+            value={tag}
+            onChange={setTag}
+            options={[{ value: '', label: 'All tags' }, ...uniqueTags.map((t) => ({ value: t, label: t }))]}
+          />
+        </div>
+        <div className="min-w-0">
+          <Select
+            value={sort}
+            onChange={setSort}
+            options={[{ value: 'trending', label: 'Trending' }, { value: 'new', label: 'Newest' }]}
+          />
+        </div>
+        <div className="min-w-0">
+          <Button className='cursor-pointer w-full md:w-auto' variant="secondary" onClick={load}>Apply</Button>
+        </div>
       </div>
       {loading ? (
         <div>Loading…</div>

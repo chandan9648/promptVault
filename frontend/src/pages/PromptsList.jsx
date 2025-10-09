@@ -8,7 +8,7 @@ import ExportBar from '../components/ExportBar';
 
 // Prompt card component
 const PromptCard = ({ p, onDelete, onPublishToggle }) => (
-  <div className=" rounded-lg p-4  shadow-sm bg-gray-100">
+  <div className=" w-[250px] flex-shrink-0 rounded-lg p-4 bg-gray-100 shadow-md hover:shadow-lg transition-all duration-200">
     <div className="flex items-start justify-between">
       <div>
         <Link to={`/prompts/${p._id}`} className="font-semibold text-lg text-blue-600 underline">{p.title}</Link>
@@ -24,8 +24,8 @@ const PromptCard = ({ p, onDelete, onPublishToggle }) => (
       {p.category && <Tag>{p.category}</Tag>}
       {p.folder && <Tag>{p.folder}</Tag>}
     </div>
-    <div className="mt-3">
-      <Button variant="secondary" onClick={() => onPublishToggle(p)}>
+    <div className="mt-3 ">
+      <Button className='cursor-pointer' variant="secondary" onClick={() => onPublishToggle(p)}>
         {p.isPublic ? 'Unpublish' : 'Publish'}
       </Button>
     </div>

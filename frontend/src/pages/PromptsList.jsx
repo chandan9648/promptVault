@@ -7,8 +7,16 @@ import ExportBar from '../components/ExportBar';
 
 
 // Prompt card component
-const PromptCard = ({ p, onDelete, onPublishToggle }) => (
-  <div className=" w-[250px] flex-shrink-0 rounded-lg p-4 bg-gray-100 shadow-md hover:shadow-lg transition-all duration-200">
+const PromptCard = ({ p, selected, onSelect, onDelete, onPublishToggle }) => (
+  <div className="relative w-full rounded-lg p-4 pl-8 bg-gray-100 shadow-md hover:shadow-lg transition-all duration-200 h-full">
+    {/* Select checkbox inside card */}
+    <input
+      type="checkbox"
+      className="absolute top-3 left-3"
+      checked={!!selected}
+      onChange={(e) => onSelect?.(e.target.checked)}
+    />
+
     <div className="flex items-start justify-between">
       <div>
         <Link to={`/prompts/${p._id}`} className="font-semibold text-lg text-blue-600 underline">{p.title}</Link>
@@ -16,15 +24,15 @@ const PromptCard = ({ p, onDelete, onPublishToggle }) => (
       </div>
       <div className="flex items-center gap-2">
         <Link to={`/prompts/${p._id}/edit`} className="text-blue-600 text-sm cursor-pointer">Edit</Link>
-        <button onClick={() => onDelete(p)} className="text-red-600 text-sm cursor-pointer  ">Delete</button>
+        <button onClick={() => onDelete(p)} className="text-red-600 text-sm cursor-pointer">Delete</button>
       </div>
     </div>
-    <div className="mt-2 flex flex-wrap">
+    <div className="mt-2 flex flex-wrap gap-1">
       {p.tags?.map((t) => <Tag key={t}>{t}</Tag>)}
       {p.category && <Tag>{p.category}</Tag>}
       {p.folder && <Tag>{p.folder}</Tag>}
     </div>
-    <div className="mt-3 ">
+    <div className="mt-3">
       <Button className='cursor-pointer' variant="secondary" onClick={() => onPublishToggle(p)}>
         {p.isPublic ? 'Unpublish' : 'Publish'}
       </Button>
@@ -51,9 +59,17 @@ const PromptsList = () => {
     }
   };
 
+  // We only want to load once on mount; Apply button triggers subsequent loads.
   useEffect(() => {
-    load();
-   
+    (async () => {
+      setLoading(true);
+      try {
+        const data = await api.listPrompts({ q: '', tag: '' });
+        setItems(data);
+      } finally {
+        setLoading(false);
+      }
+    })();
   }, []);
 
   const onDelete = async (p) => {
@@ -72,10 +88,10 @@ const PromptsList = () => {
 
   //MY PROMPTS PAGE
   return (
-    <div className="max-w-6xl mx-auto p-4">
-      <div className="flex items-center justify-between mb-4">
+    <div className="max-w-6xl mx-auto p-4 overflow-x-hidden">
+      <div className="flex flex-col gap-3 md:flex-row md:items-center md:justify-between mb-4">
         <h1 className="text-2xl font-semibold ">My Prompts</h1>
-        <div className="flex items-center gap-2">
+        <div className="flex flex-wrap items-center gap-2 w-full md:w-auto md:justify-end">
           <ExportBar selectedIds={Object.keys(selected).filter((k) => selected[k])} />
           <Button className='cursor-pointer shadow-sm' onClick={() => nav('/prompts/new')}>New Prompt</Button>
         </div>
@@ -93,12 +109,16 @@ const PromptsList = () => {
       {loading ? (
         <div>Loading…</div>
       ) : items.length ? (
-        <div className="grid gap-3">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-4">
           {items.map((p) => (
-            <div key={p._id} className="flex items-start gap-3">
-              <input type="checkbox" className="mt-2" checked={!!selected[p._id]} onChange={(e) => setSelected((s) => ({ ...s, [p._id]: e.target.checked }))} />
-              <PromptCard p={p} onDelete={onDelete} onPublishToggle={onPublishToggle} />
-            </div>
+            <PromptCard
+              key={p._id}
+              p={p}
+              selected={!!selected[p._id]}
+              onSelect={(checked) => setSelected((s) => ({ ...s, [p._id]: checked }))}
+              onDelete={onDelete}
+              onPublishToggle={onPublishToggle}
+            />
           ))}
         </div>
       ) : (

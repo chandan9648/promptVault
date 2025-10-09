@@ -37,7 +37,7 @@ const ExportBar = ({ selectedIds = [] }) => {
   };
 
   return (
-    <div className="flex gap-2 items-center">
+    <div className="flex flex-wrap gap-2 items-center">
       <Button variant="secondary" disabled={disabled} onClick={exportJson}>Export JSON</Button>
       <Button variant="secondary" disabled={disabled} onClick={exportPdf}>Export PDF</Button>
       <Button variant="secondary" disabled={disabled} onClick={exportNotion}>Export Notion</Button>

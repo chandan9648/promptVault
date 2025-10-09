@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { api } from '../lib/api';
 import { Button, Tag } from '../components/ui';
@@ -9,17 +9,17 @@ const PromptDetail = () => {
   const [p, setP] = useState(null);
   const [error, setError] = useState('');
 
-  const load = async () => {
+  const load = useCallback(async () => {
     try {
       const d = await api.getPrompt(id);
       setP(d);
     } catch {
       setError('Not found');
     }
-  };
-
-  useEffect(() => { load(); 
   }, [id]);
+
+  useEffect(() => { load();
+  }, [load]);
 
   const togglePub = async () => {
     if (!p) return;
@@ -31,8 +31,8 @@ const PromptDetail = () => {
   if (!p) return <div className="p-4">{error || 'Loading…'}</div>;
 
   return (
-    <div className="max-w-3xl mx-auto p-4">
-      <div className="flex items-start justify-between">
+    <div className="max-w-3xl mx-auto p-4 overflow-x-hidden">
+      <div className="flex items-start justify-between gap-3 flex-wrap">
         <div>
           <h1 className="text-2xl font-semibold">{p.title}</h1>
           {p.description && <p className="text-gray-600 mt-1">{p.description}</p>}

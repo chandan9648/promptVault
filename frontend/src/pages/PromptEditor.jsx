@@ -51,7 +51,7 @@ const PromptEditor = () => {
         <Input label="Title" value={form.title} onChange={(e) => update('title', e.target.value)} required minLength={2} />
         <Input label="Description" value={form.description} onChange={(e) => update('description', e.target.value)} />
         <Textarea label="Prompt text" value={form.text} onChange={(e) => update('text', e.target.value)} required minLength={5} />
-        <Input label="Tags (comma separated)" value={form.tags} onChange={(e) => update('tags', e.target.value)} />
+        {/* <Input label="Tags (comma separated)" value={form.tags} onChange={(e) => update('tags', e.target.value)} /> */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <Input label="Category" value={form.category} onChange={(e) => update('category', e.target.value)} />
           <Input label="Folder" value={form.folder} onChange={(e) => update('folder', e.target.value)} />

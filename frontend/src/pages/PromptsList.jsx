@@ -28,7 +28,7 @@ const PromptCard = ({ p, selected, onSelect, onDelete, onPublishToggle }) => (
       </div>
     </div>
     <div className="mt-2 flex flex-wrap gap-1">
-      {p.tags?.map((t) => <Tag key={t}>{t}</Tag>)}
+  {/* Tags hidden */}
       {p.category && <Tag>{p.category}</Tag>}
       {p.folder && <Tag>{p.folder}</Tag>}
     </div>

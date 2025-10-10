@@ -43,7 +43,7 @@ const PromptDetail = () => {
         </div>
       </div>
       <div className="mt-3 flex flex-wrap">
-        {p.tags?.map((t) => <Tag key={t}>{t}</Tag>)}
+  {/* Tags hidden */}
         {p.category && <Tag>{p.category}</Tag>}
         {p.folder && <Tag>{p.folder}</Tag>}
         {p.isPublic && <Tag>Public</Tag>}

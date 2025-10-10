@@ -33,7 +33,7 @@ const Login = () => {
         <Input label="Email" type="email" value={email} onChange={(e) => setEmail(e.target.value)} required />
         <Input label="Password" type="password" value={password} onChange={(e) => setPassword(e.target.value)} required />
         {error && <div className="text-sm text-red-600">{error}</div>}
-        <Button type="submit" disabled={loading}>{loading ? 'Signing in…' : 'Login'}</Button>
+        <Button type="submit" className='cursor-pointer' disabled={loading}>{loading ? 'Signing in…' : 'Login'}</Button>
       </form>
       <p className="text-sm text-gray-600 mt-4">No account? <Link to="/register" className="text-blue-600">Register</Link></p>
     

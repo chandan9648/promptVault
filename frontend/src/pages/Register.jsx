@@ -34,7 +34,7 @@ const Register = () => {
         <Input label="Email" type="email" value={email} onChange={(e) => setEmail(e.target.value)} required />
         <Input label="Password" type="password" value={password} onChange={(e) => setPassword(e.target.value)} required minLength={6} />
         {error && <div className="text-sm text-red-600">{error}</div>}
-        <Button type="submit" disabled={loading}>{loading ? 'Creating…' : 'Register'}</Button>
+        <Button type="submit" className='cursor-pointer' disabled={loading}>{loading ? 'Creating…' : 'Register'}</Button>
       </form>
       <p className="text-sm text-gray-600 mt-4">Have an account? <Link to="/login" className="text-blue-600">Login</Link></p>
     </div>

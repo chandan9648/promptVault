@@ -16,9 +16,19 @@ instance.interceptors.request.use((config) => {
 
 instance.interceptors.response.use(
   (res) => res,
-  (err) => {
+  async (err) => {
     const status = err?.response?.status || 500;
-    const data = err?.response?.data || { message: 'Request failed' };
+    let data = err?.response?.data;
+    // If server responded with a Blob (e.g., from a PDF endpoint), try parse to JSON
+    if (data instanceof Blob) {
+      try {
+        const text = await data.text();
+        data = JSON.parse(text);
+      } catch {
+        // keep as Blob if not JSON
+      }
+    }
+    if (!data || typeof data !== 'object') data = { message: 'Request failed' };
     return Promise.reject({ status, data });
   }
 );

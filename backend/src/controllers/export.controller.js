@@ -41,7 +41,8 @@ export const exportPdf = async (req, res) => {
       if (idx) doc.addPage();
       doc.fontSize(18).text(p.title, { underline: true });
       if (p.description) doc.moveDown().fontSize(12).text(p.description);
-      doc.moveDown().fontSize(10).text(`Tags: ${p.tags.join(', ')}`);
+      const tags = Array.isArray(p.tags) ? p.tags : [];
+      doc.moveDown().fontSize(10).text(`Tags: ${tags.join(', ')}`);
       if (p.category) doc.text(`Category: ${p.category}`);
       if (p.folder) doc.text(`Folder: ${p.folder}`);
       doc.moveDown().fontSize(12).text('Prompt:');

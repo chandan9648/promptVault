@@ -21,7 +21,7 @@ const Community = () => {
     }
   };
 
-  useEffect(() => { load(); // eslint-disable-next-line
+  useEffect(() => { load(); 
   }, []);
 
   const onLike = async (p) => {

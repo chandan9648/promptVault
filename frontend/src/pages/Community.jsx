@@ -35,7 +35,11 @@ const Community = () => {
     }
   };
 
-  const uniqueTags = Array.from(new Set(items.flatMap((i) => i.tags || [])));
+  const uniqueTags = (() => {
+    const banned = new Set(['ai', 'prompt-engineering']);
+    return Array.from(new Set(items.flatMap((i) => i.tags || [])))
+      .filter((t) => !banned.has(String(t).toLowerCase()));
+  })();
 
   return (
     <div className="max-w-6xl mx-auto p-4 overflow-x-hidden">

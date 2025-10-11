@@ -16,11 +16,14 @@ const PromptEditor = () => {
     const run = async () => {
       if (!editing) return;
       const p = await api.getPrompt(id);
+      const banned = new Set(['ai', 'prompt-engineering']);
+      const filteredTags = (p.tags || []).filter((t) => !banned.has(String(t).toLowerCase()));
       setForm({
         title: p.title || '',
         description: p.description || '',
         text: p.text || '',
-        tags: (p.tags || []).join(', '),
+        // Hide default banned tags unless the user types them
+        tags: filteredTags.join(', '),
         category: p.category || '',
         folder: p.folder || '',
       });

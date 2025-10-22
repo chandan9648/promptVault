@@ -37,8 +37,8 @@ const PromptDetail = () => {
           <h1 className="text-2xl font-semibold">{p.title}</h1>
           {p.description && <p className="text-gray-600 mt-1">{p.description}</p>}
         </div>
-        <div className="flex gap-4">
-          <Link to={`/prompts/${p._id}/edit`} className="text-blue-600">Edit</Link>
+        <div className="flex gap-4 ">
+          <Link to={`/prompts/${p._id}/edit`} className="text-blue-600 mt-2">Edit</Link>
           <Button variant="secondary" onClick={() => nav('/prompts')}>Back</Button>
         </div>
       </div>

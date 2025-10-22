@@ -6,6 +6,25 @@ import ExportBar from '../components/ExportBar';
 
 
 
+//  Format date and time
+  const formatDateTime = (dateString) => {
+    if (!dateString) return 'N/A';
+    const date = new Date(dateString);
+
+    // Format date: dd/mm/yy
+    const day = String(date.getDate()).padStart(2, '0');
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const year = String(date.getFullYear()).slice(-2);
+
+    // Format time: hh:mm:ss (24-hour)
+    const hours = String(date.getHours()).padStart(2, '0');
+    const minutes = String(date.getMinutes()).padStart(2, '0');
+
+
+    return `${day}/${month}/${year} ${hours}:${minutes}`;
+  };
+
+
 // Prompt card component
 const PromptCard = ({ p, selected, onSelect, onDelete, onPublishToggle }) => (
   <div className="relative w-full rounded-lg p-4 pl-8 bg-gray-100 shadow-md hover:shadow-lg transition-all duration-200 h-full">
@@ -21,6 +40,12 @@ const PromptCard = ({ p, selected, onSelect, onDelete, onPublishToggle }) => (
       <div>
         <Link to={`/prompts/${p._id}`} className="font-semibold text-lg text-blue-600 underline">{p.title}</Link>
         {p.description && <p className="text-sm text-gray-600 mt-1">{p.description}</p>}
+
+           {/* ✅ Add Date & Time below description */}
+        <div className="text-xs text-gray-500  mt-2 bg-gray-200 p-1 text-center rounded">
+          <p> {formatDateTime(p.createdAt)}</p>
+
+        </div>
       </div>
       <div className="flex items-center gap-2">
         <Link to={`/prompts/${p._id}/edit`} className="text-blue-600 text-sm cursor-pointer">Edit</Link>
@@ -39,6 +64,10 @@ const PromptCard = ({ p, selected, onSelect, onDelete, onPublishToggle }) => (
     </div>
   </div>
 );
+
+
+
+
 
 //MAIN COMPONENT
 const PromptsList = () => {
@@ -90,6 +119,7 @@ const PromptsList = () => {
       .filter((t) => !banned.has(String(t).toLowerCase()));
   }, [items]);
 
+
   //MY PROMPTS PAGE
   return (
     <div className="max-w-6xl mx-auto p-4 overflow-x-hidden">
@@ -100,6 +130,8 @@ const PromptsList = () => {
           <Button className='cursor-pointer shadow-sm' onClick={() => nav('/prompts/new')}>New Prompt</Button>
         </div>
       </div>
+
+    
       <div className="grid grid-cols-1 md:grid-cols-3 gap-3 mb-4">
         <Input placeholder="Search…" value={q} onChange={(e) => setQ(e.target.value)} />
         {uniqueTags.length > 0 && (
@@ -126,6 +158,7 @@ const PromptsList = () => {
               onPublishToggle={onPublishToggle}
             />
           ))}
+          
         </div>
       ) : (
         <div className="text-gray-600">No prompts yet.</div>

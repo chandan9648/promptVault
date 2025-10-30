@@ -5,6 +5,7 @@ import { Input, Button } from '../components/ui';
 import { toast } from 'react-toastify';
 
 
+
 const Register = () => {
   const { register, loading } = useAuth();
   const nav = useNavigate();
@@ -18,7 +19,7 @@ const Register = () => {
     setError('');
     const res = await register(name, email, password);
     if (res.ok) {
-      nav('/prompts');
+      nav('/login');
       toast.success('Registered successfully!');
     } else {
       setError(res.message);
@@ -38,6 +39,7 @@ const Register = () => {
       </form>
       <p className="text-sm text-gray-600 mt-4">Have an account? <Link to="/login" className="text-blue-600">Login</Link></p>
     </div>
+    
   );
 };
 

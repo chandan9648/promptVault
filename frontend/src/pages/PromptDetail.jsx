@@ -2,7 +2,7 @@ import React, { useCallback, useEffect, useState } from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { api } from '../lib/api';
 import { Button, Tag } from '../components/ui';
-import {FiCopy} from 'react-icons/fi';
+
 
 const PromptDetail = () => {
   const { id } = useParams();
@@ -29,18 +29,6 @@ const PromptDetail = () => {
     else await api.publishPrompt(p._id);
     setP({ ...p, isPublic: !p.isPublic });
   };
-
-//COPY BUTTON FUNCTIONALITY
-const handleCopy = async () => {
-  try{
-    await navigator.clipboard.writeText(p.text);
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2000); // Reset after 2 seconds
-
-  }catch (err) {
-    console.error('Failed to copy text: ', err);
-  }
-};
 
   if (!p) return <div className="p-4">{error || 'Loading…'}</div>;
 
@@ -94,29 +82,9 @@ const handleCopy = async () => {
         {p.isPublic && <Tag>Public</Tag>}
       </div>
 
-       {/*  Prompt Text Box with Copy Button */}
-      <div className="mt-6 bg-gray-100 p-6 rounded-lg shadow-sm relative">
-        {/* Copy Icon */}
-        <button
-          onClick={handleCopy}
-          className="absolute top-2 right-2 text-gray-600 hover:text-black transition flex items-center cursor-pointer"
-          title="Copy Prompt"
-        >
-          <FiCopy size={20} />
-        </button>
-
-        {/* Tooltip */}
-        {copied && (
-          <span className="absolute top-2 right-10 text-sm text-green-600 font-medium">
-            Copied!
-          </span>
-        )}
-
-        <pre className="whitespace-pre-wrap text-gray-800">{p.text}</pre>
-      </div>
-      {/* <div className="mt-6 whitespace-pre-wrap bg-gray-100 p-6 rounded-lg shadow-sm">
+      <div className="mt-6 whitespace-pre-wrap bg-gray-100 p-6 rounded-lg shadow-sm">
         {p.text}
-      </div> */}
+      </div>
       <div className="mt-4">
         <Button variant="secondary" onClick={togglePub}>{p.isPublic ? 'Unpublish' : 'Publish'}</Button>
       </div>

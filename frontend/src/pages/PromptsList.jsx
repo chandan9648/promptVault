@@ -19,15 +19,13 @@ import ExportBar from '../components/ExportBar';
     // Format time: hh:mm:ss (24-hour)
     const hours = String(date.getHours()).padStart(2, '0');
     const minutes = String(date.getMinutes()).padStart(2, '0');
-
-
     return `${day}/${month}/${year} ${hours}:${minutes}`;
   };
 
 
 // Prompt card component
 const PromptCard = ({ p, selected, onSelect, onDelete, onPublishToggle }) => (
-  <div className="relative w-full rounded-lg p-4 pl-8 bg-gray-100 shadow-md hover:shadow-lg transition-all duration-200 h-full">
+  <div className="relative w-full rounded-lg p-4 pl-8 bg-gray-100 shadow-md hover:shadow-lg transition-all duration-200 h-full border-l-4 border-t-2 border-gray-500 rounded-lg shadow-lg">
     {/* Select checkbox inside card */}
     <input
       type="checkbox"
@@ -36,7 +34,7 @@ const PromptCard = ({ p, selected, onSelect, onDelete, onPublishToggle }) => (
       onChange={(e) => onSelect?.(e.target.checked)}
     />
 
-    <div className="flex items-start justify-between">
+    <div className="flex items-start justify-between ">
       <div>
         <Link to={`/prompts/${p._id}`} className="font-semibold text-lg text-blue-600 underline">{p.title}</Link>
         {p.description && <p className="text-sm text-gray-600 mt-1">{p.description}</p>}
@@ -120,7 +118,7 @@ const PromptsList = () => {
   }, [items]);
 
 
-  //MY PROMPTS PAGE
+  //MY PROMPTS MAIN PAGE
   return (
     <div className="max-w-6xl mx-auto p-4 overflow-x-hidden">
       <div className="flex flex-col gap-3 md:flex-row md:items-center md:justify-between mb-4">

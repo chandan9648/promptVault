@@ -69,13 +69,13 @@ const handleCopy = async () => {
   //INSIDE PROMPT DETAIL PAGE
 
   return (
-    <div className="max-w-3xl mx-auto p-4 overflow-x-hidden border-l-4 border-t-2 border-gray-500 rounded-lg shadow-lg">
+    <div className="max-w-3xl mx-auto p-4 overflow-x-hidden border-l-4 border-t-2 border-gray-500 rounded-lg shadow-lg hover:shadow-xl transition-all duration-200">
       <div className="flex items-start justify-between gap-3 flex-wrap">
         <div>
           <h1 className="text-2xl font-semibold">{p.title}</h1>
           {p.description && <p className="text-gray-600 mt-1">{p.description}</p>}
 
-            {/* ✅ Date & Time Section */}
+            {/*  Date & Time Section */}
           <div className="text-sm text-gray-500 mt-2 bg-gray-200 p-2 rounded">
             <p>📅 Created: {createdAt}</p>
             <p>🕒 Last Updated: {updatedAt}</p>

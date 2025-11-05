@@ -3,6 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { api } from '../lib/api';
 import { Button, Input, Tag } from '../components/ui';
 import ExportBar from '../components/ExportBar';
+import CopyButton from '../components/HandleCopy';
 
 
 
@@ -45,9 +46,10 @@ const PromptCard = ({ p, selected, onSelect, onDelete, onPublishToggle }) => (
 
         </div>
       </div>
-      <div className="flex items-center gap-2">
-        <Link to={`/prompts/${p._id}/edit`} className="text-blue-600 text-sm cursor-pointer">Edit</Link>
-        <button onClick={() => onDelete(p)} className="text-red-600 text-sm cursor-pointer">Delete</button>
+      <div className="flex items-center gap-2 mt-2">
+        <Link to={`/prompts/${p._id}/edit`} className="text-blue-600 text-sm cursor-pointer hover:bg-blue-200 rounded p-1">Edit</Link>
+        <button onClick={() => onDelete(p)} className="text-red-600 text-sm cursor-pointer hover:bg-red-200 rounded p-1">Delete</button>
+        <CopyButton textToCopy={p.text} />
       </div>
     </div>
     <div className="mt-2 flex flex-wrap gap-1">

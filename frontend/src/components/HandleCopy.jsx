@@ -25,7 +25,7 @@ const CopyButton = ({ textToCopy }) => {
       </button>
 
       {copied && (
-        <span className="absolute -top-7 right-0 text-xs text-green-600 font-medium">
+        <span className="absolute -top-7 -right-4 text-xs text-green-600 font-medium">
           Copied!
         </span>
       )}

@@ -2,6 +2,7 @@ import React, { useCallback, useEffect, useState } from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { api } from '../lib/api';
 import { Button, Tag } from '../components/ui';
+import CopyButton from '../components/HandleCopy';
 
 
 const PromptDetail = () => {
@@ -71,7 +72,7 @@ const PromptDetail = () => {
         </div>
 
         <div className="flex gap-4 ">
-          <Link to={`/prompts/${p._id}/edit`} className="text-blue-600 mt-2">Edit</Link>
+          <Link to={`/prompts/${p._id}/edit`} className="text-blue-600 mt-2 hover:bg-blue-200 rounded p-1">Edit</Link>
           <Button variant="secondary" onClick={() => nav('/prompts')}>Back</Button>
         </div>
       </div>
@@ -82,7 +83,8 @@ const PromptDetail = () => {
         {p.isPublic && <Tag>Public</Tag>}
       </div>
 
-      <div className="mt-6 whitespace-pre-wrap bg-gray-100 p-6 rounded-lg shadow-sm">
+      <div className="mt-6 whitespace-pre-wrap bg-gray-100 p-6 rounded-lg shadow-sm relative">
+        <CopyButton textToCopy={p.text} />
         {p.text}
       </div>
       <div className="mt-4">

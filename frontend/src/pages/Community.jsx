@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { api } from '../lib/api';
 import { Button, Input, Tag, Select } from '../components/ui';
 import { useAuth } from '../context/useAuth';
+import CopyButton from '../components/HandleCopy';
+
 
 const Community = () => {
   const [items, setItems] = useState([]);
@@ -71,14 +73,17 @@ const Community = () => {
       ) : items.length ? (
         <div className="grid gap-3">
           {items.map((p) => (
-            <div key={p._id} className=" rounded-lg p-4 bg-gray-100 shadow-sm">
+            <div key={p._id} className="relative rounded-lg p-4 bg-gray-100 shadow-sm border-l-4 border-t-2 border-gray-500  shadow-md hover:shadow-lg transition-all duration-200">
+                 <CopyButton textToCopy={p.text} />
               <div className="flex items-start justify-between">
+             
                 <div>
                   <div className="font-semibold text-lg">{p.title}</div>
                   {p.description && <p className="text-sm text-gray-600 mt-1">{p.description}</p>}
                 </div>
-                <div className="flex items-center gap-2">
-                  <button className={`text-sm ${p._liked ? 'text-pink-600' : 'text-gray-600'}`} onClick={() => onLike(p)}>
+                <div className="flex items-center gap-2 pt-5">
+                  
+                  <button className={`text-sm ${p._liked ? 'text-pink-600' : 'text-gray-600'} cursor-pointer`} onClick={() => onLike(p)}>
                     ♥ {p.likes || 0}
                   </button>
                 </div>

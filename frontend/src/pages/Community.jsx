@@ -65,7 +65,7 @@ const Community = () => {
           />
         </div>
         <div className="min-w-0">
-          <Button className='cursor-pointer w-full md:w-auto' variant="secondary" onClick={load}>Apply</Button>
+          <Button className='cursor-pointer w-full md:w-auto' onClick={load}>Apply</Button>
         </div>
       </div>
       {loading ? (

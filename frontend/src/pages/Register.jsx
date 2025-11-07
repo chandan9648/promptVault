@@ -19,7 +19,7 @@ const Register = () => {
     setError('');
     const res = await register(name, email, password);
     if (res.ok) {
-      nav('/login');
+      nav('/');
       toast.success('Registered successfully!');
     } else {
       setError(res.message);

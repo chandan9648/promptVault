@@ -52,6 +52,7 @@ const NavBar = () => {
             <div className="flex items-center gap-3 ml-2">
               <span className="text-bold  text-green-600">👋{user.name}</span>
               <button onClick={logout} className="px-3 py-2 rounded-md text-sm font-medium bg-red-400 hover:bg-red-500 cursor-pointer">Logout</button>
+              
             </div>
           )}
         </nav>

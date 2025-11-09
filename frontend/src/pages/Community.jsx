@@ -23,17 +23,18 @@ const Community = () => {
     }
   };
 
-  useEffect(() => { load(); 
+  useEffect(() => {
+    load();
   }, []);
 
   const onLike = async (p) => {
     if (!user) return alert('Login to like');
     if (p._liked) {
       await api.unlikePrompt(p._id);
-      setItems((prev) => prev.map((x) => x._id === p._id ? { ...x, _liked: false, likes: Math.max(0, (x.likes||1)-1) } : x));
+      setItems((prev) => prev.map((x) => x._id === p._id ? { ...x, _liked: false, likes: Math.max(0, (x.likes || 1) - 1) } : x));
     } else {
       await api.likePrompt(p._id);
-      setItems((prev) => prev.map((x) => x._id === p._id ? { ...x, _liked: true, likes: (x.likes||0)+1 } : x));
+      setItems((prev) => prev.map((x) => x._id === p._id ? { ...x, _liked: true, likes: (x.likes || 0) + 1 } : x));
     }
   };
 
@@ -74,15 +75,20 @@ const Community = () => {
         <div className="grid gap-3">
           {items.map((p) => (
             <div key={p._id} className="relative rounded-lg p-4 bg-gray-100 shadow-sm border-l-4 border-t-2 border-gray-500  shadow-md hover:shadow-lg transition-all duration-200">
-                 <CopyButton textToCopy={p.text} />
+              <CopyButton textToCopy={p.text} />
+
+              {/* <div className="flex items-end bg-white p-1 rounded w-30 shadow-sm border border-gray-300 ">
+                <span className="text-extrebold  text-blue-600">🙋🏻‍♂️{user.name}</span>
+                  
+              </div> */}
               <div className="flex items-start justify-between">
-             
+
                 <div>
                   <div className="font-semibold text-lg">{p.title}</div>
                   {p.description && <p className="text-sm text-gray-600 mt-1">{p.description}</p>}
                 </div>
                 <div className="flex items-center gap-2 pt-5">
-                  
+
                   <button className={`text-sm ${p._liked ? 'text-pink-600' : 'text-gray-600'} cursor-pointer`} onClick={() => onLike(p)}>
                     ♥ {p.likes || 0}
                   </button>

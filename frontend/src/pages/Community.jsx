@@ -76,11 +76,6 @@ const Community = () => {
           {items.map((p) => (
             <div key={p._id} className="relative rounded-lg p-4 bg-gray-100 shadow-sm border-l-4 border-t-2 border-gray-500  shadow-md hover:shadow-lg transition-all duration-200">
               <CopyButton textToCopy={p.text} />
-
-              {/* <div className="flex items-end bg-white p-1 rounded w-30 shadow-sm border border-gray-300 ">
-                <span className="text-extrebold  text-blue-600">🙋🏻‍♂️{user.name}</span>
-                  
-              </div> */}
               <div className="flex items-start justify-between">
 
                 <div>

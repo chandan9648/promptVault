@@ -46,7 +46,7 @@ const PromptEditor = () => {
     }
   };
 
-  //EDIT PROMPT PAGE
+  //EDIT PROMPT PAGE 
   return (
     <div className="max-w-3xl mx-auto p-4">
       <h1 className="text-2xl font-semibold mb-4">{editing ? 'Edit' : 'New'} Prompt</h1>

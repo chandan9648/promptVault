@@ -22,7 +22,7 @@ const PromptEditor = () => {
         title: p.title || '',
         description: p.description || '',
         text: p.text || '',
-        // Hide default banned tags unless the user types them
+        // Hide default banned tags unless the user types them 
         tags: filteredTags.join(', '),
         category: p.category || '',
         folder: p.folder || '',

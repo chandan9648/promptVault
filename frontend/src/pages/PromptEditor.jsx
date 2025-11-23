@@ -22,7 +22,7 @@ const PromptEditor = () => {
         title: p.title || '',
         description: p.description || '',
         text: p.text || '',
-        // Hide default banned tags unless the user types them
+        // Hide default banned tags unless the user types them 
         tags: filteredTags.join(', '),
         category: p.category || '',
         folder: p.folder || '',
@@ -46,7 +46,7 @@ const PromptEditor = () => {
     }
   };
 
-  //EDIT PROMPT PAGE
+  //EDIT PROMPT PAGE 
   return (
     <div className="max-w-3xl mx-auto p-4">
       <h1 className="text-2xl font-semibold mb-4">{editing ? 'Edit' : 'New'} Prompt</h1>

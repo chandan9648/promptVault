@@ -16,7 +16,4 @@ const PromptSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-// Support text search on title/description/text
-PromptSchema.index({ title: 'text', description: 'text', text: 'text' });
-
 export default mongoose.model('Prompt', PromptSchema);

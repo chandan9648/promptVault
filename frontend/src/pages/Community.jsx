@@ -3,6 +3,7 @@ import { api } from '../lib/api';
 import { Button, Input, Tag, Select } from '../components/ui';
 import { useAuth } from '../context/useAuth';
 import CopyButton from '../components/HandleCopy';
+import Loader from '../components/Loader';
 
 
 const Community = () => {
@@ -70,7 +71,7 @@ const Community = () => {
         </div>
       </div>
       {loading ? (
-        <div>Loading…</div>
+        <div><Loader /></div>
       ) : items.length ? (
         <div className="grid gap-3">
           {items.map((p) => (

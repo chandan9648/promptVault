@@ -18,7 +18,7 @@ const CopyButton = ({ textToCopy }) => {
     <div className="absolute top-2 right-2">
       <button
         onClick={handleCopy}
-        className="text-gray-600 hover:text-black transition flex items-center cursor-pointer"
+        className="text-gray-600 hover:text-black transition flex items-center cursor-pointer "
         
       >
         <FiCopy size={20} />

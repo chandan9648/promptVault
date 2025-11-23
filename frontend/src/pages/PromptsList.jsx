@@ -4,6 +4,7 @@ import { api } from '../lib/api';
 import { Button, Input, Tag } from '../components/ui';
 import ExportBar from '../components/ExportBar';
 import CopyButton from '../components/HandleCopy';
+import Loader from '../components/Loader';
 
 
 
@@ -40,7 +41,7 @@ const PromptCard = ({ p, selected, onSelect, onDelete, onPublishToggle }) => (
         <Link to={`/prompts/${p._id}`} className="font-semibold text-lg text-blue-600 underline">{p.title}</Link>
         {p.description && <p className="text-sm text-gray-600 mt-1">{p.description}</p>}
 
-           {/* ✅ Add Date & Time below description */}
+           {/* Add Date & Time below description */}
         <div className="text-xs text-gray-500  mt-2 bg-gray-200 p-1 text-center rounded">
           <p> {formatDateTime(p.createdAt)}</p>
 
@@ -145,7 +146,7 @@ const PromptsList = () => {
         <Button className='cursor-pointer shadow-sm' variant="secondary" onClick={load}>Apply</Button>
       </div>
       {loading ? (
-        <div>Loading…</div>
+        <div><Loader /></div>
       ) : items.length ? (
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-4">
           {items.map((p) => (

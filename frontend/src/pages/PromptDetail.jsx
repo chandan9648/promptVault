@@ -3,6 +3,7 @@ import { Link, useNavigate, useParams } from 'react-router-dom';
 import { api } from '../lib/api';
 import { Button, Tag } from '../components/ui';
 import CopyButton from '../components/HandleCopy';
+import Loader from '../components/Loader';
 
 
 const PromptDetail = () => {
@@ -10,7 +11,7 @@ const PromptDetail = () => {
   const nav = useNavigate();
   const [p, setP] = useState(null);
   const [error, setError] = useState('');
-  const [copied, setCopied] = useState(false);
+  // const [copied, setCopied] = useState(false);
 
   const load = useCallback(async () => {
     try {
@@ -31,7 +32,7 @@ const PromptDetail = () => {
     setP({ ...p, isPublic: !p.isPublic });
   };
 
-  if (!p) return <div className="p-4">{error || 'Loading…'}</div>;
+  if (!p) return <div className="p-4">{error || <Loader />}</div>;
 
 
    // Custom date and time formatting

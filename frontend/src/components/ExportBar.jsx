@@ -32,6 +32,7 @@ const ExportBar = ({ selectedIds = [] }) => {
       const res = await api.exportPdf(selectedIds);
       // When successful, res.data should be a Blob (application/pdf)
       // If server returns an error, our interceptor will normalize it and throw instead
+      
       downloadBlob(res.data, 'prompts.pdf');
     } catch (e) {
       // If interceptor couldn't parse, try to read blob text fallback

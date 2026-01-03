@@ -27,6 +27,7 @@ const ExportBar = ({ selectedIds = [] }) => {
     }
   };
 
+  
   const exportPdf = async () => {
     try {
       const res = await api.exportPdf(selectedIds);

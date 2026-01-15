@@ -21,8 +21,6 @@ app.use(cors({
 app.use(morgan('dev'));
 app.use(helmet());
 
-
-
 // Routes
 app.use('/api/auth', authRoutes);
 app.use('/api/prompts', promptRoutes);

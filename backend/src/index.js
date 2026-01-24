@@ -39,6 +39,6 @@ const MONGODB_URI = process.env.MONGODB_URI || 'mongodb://localhost:27017/prompt
 
 connectDB(MONGODB_URI).then(() => {
   app.listen(PORT, () => {
-    console.log(`Server listening on http://localhost:${PORT}`);
+    console.log(`Server listening on port:${PORT}`);
   });
 });

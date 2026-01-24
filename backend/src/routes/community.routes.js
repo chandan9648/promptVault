@@ -4,7 +4,7 @@ import Prompt from '../models/Prompt.js';
 
 const router = express.Router();
 
-// Publish/unpublish
+// Publish
 router.post('/:id/publish', auth, async (req, res) => {
   try {
     const p = await Prompt.findOneAndUpdate(
@@ -19,6 +19,7 @@ router.post('/:id/publish', auth, async (req, res) => {
   }
 });
 
+// Unpublish
 router.post('/:id/unpublish', auth, async (req, res) => {
   try {
     const p = await Prompt.findOneAndUpdate(
@@ -48,7 +49,7 @@ router.get('/public', async (req, res) => {
   }
 });
 
-// Like/unlike
+// Like
 router.post('/:id/like', auth, async (req, res) => {
   try {
     const p = await Prompt.findOne({ _id: req.params.id, isPublic: true });
@@ -65,6 +66,7 @@ router.post('/:id/like', auth, async (req, res) => {
   }
 });
 
+// Unlike
 router.post('/:id/unlike', auth, async (req, res) => {
   try {
     const p = await Prompt.findOne({ _id: req.params.id, isPublic: true });

@@ -5,6 +5,7 @@ import { useAuth } from '../context/useAuth';
 const NavBar = () => {
   const { user, logout } = useAuth();
   const [open, setOpen] = useState(false);
+  const isAdmin = user?.role === 'admin';
   const linkCls = ({ isActive }) => `px-3 py-2 rounded-md text-sm font-medium ${isActive ? 'bg-blue-600 text-white' : 'text-gray-700 hover:bg-gray-100'}`;
   const mobileLinkCls = ({ isActive }) => `block ${linkCls({ isActive })}`;
   return (
@@ -36,9 +37,15 @@ const NavBar = () => {
         <nav className="hidden md:flex items-center gap-2">
           {user && (
             <>
-              <NavLink to="/community" className={linkCls}>Community</NavLink>
-              <NavLink to="/prompts" className={linkCls}>My Prompts</NavLink>
-              <NavLink to="/prompts/new" className={linkCls}>New</NavLink>
+              {isAdmin ? (
+                <NavLink to="/admin" className={linkCls}>Admin</NavLink>
+              ) : (
+                <>
+                  <NavLink to="/community" className={linkCls}>Community</NavLink>
+                  <NavLink to="/prompts" className={linkCls}>My Prompts</NavLink>
+                  <NavLink to="/prompts/new" className={linkCls}>New</NavLink>
+                </>
+              )}
             </>
           )}
           {!user && (
@@ -66,9 +73,15 @@ const NavBar = () => {
             <div className="flex flex-col gap-1">
               {user && (
                 <>
-                  <NavLink to="/prompts" className={mobileLinkCls} onClick={() => setOpen(false)}>My Prompts</NavLink>
-                  <NavLink to="/community" className={mobileLinkCls} onClick={() => setOpen(false)}>Community</NavLink>
-                  <NavLink to="/prompts/new" className={mobileLinkCls} onClick={() => setOpen(false)}>New</NavLink>
+                  {isAdmin ? (
+                    <NavLink to="/admin" className={mobileLinkCls} onClick={() => setOpen(false)}>Admin</NavLink>
+                  ) : (
+                    <>
+                      <NavLink to="/prompts" className={mobileLinkCls} onClick={() => setOpen(false)}>My Prompts</NavLink>
+                      <NavLink to="/community" className={mobileLinkCls} onClick={() => setOpen(false)}>Community</NavLink>
+                      <NavLink to="/prompts/new" className={mobileLinkCls} onClick={() => setOpen(false)}>New</NavLink>
+                    </>
+                  )}
                 </>
               )}
               {!user && (

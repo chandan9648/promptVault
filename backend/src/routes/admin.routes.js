@@ -9,7 +9,7 @@ const router = express.Router();
 router.get('/stats', auth, requireAdmin, async (req, res) => {
   try {
     const [userCount, sharedPromptCount] = await Promise.all([
-      User.estimatedDocumentCount(),
+      User.countDocuments({ role: { $ne: 'admin' } }),
       Prompt.countDocuments({ isPublic: true }),
     ]);
 
@@ -23,6 +23,7 @@ router.get('/stats', auth, requireAdmin, async (req, res) => {
 router.get('/users/summary', auth, requireAdmin, async (req, res) => {
   try {
     const users = await User.aggregate([
+      { $match: { role: { $ne: 'admin' } } },
       { $project: { email: 1, name: 1 } },
       {
         $lookup: {

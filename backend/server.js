@@ -1,12 +1,16 @@
 import 'dotenv/config';
 import app from './src/app.js';
-import { connectDB } from './src/db/db.js';
+import { connectDB } from './src/config/db.js';
 
+const PORT = process.env.PORT || 3000;
+const MONGODB_URI =
+  process.env.MONGODB_URI ||
+  process.env.MONGO_URI ||
+  'mongodb://localhost:27017/promptvault';
 
-connectDB();
-
-
-  app.listen(3000, () => {
-    console.log("Server running on port 3000");
+connectDB(MONGODB_URI).then(() => {
+  app.listen(PORT, () => {
+    console.log(`Server running on port ${PORT}`);
   });
+});
 

@@ -7,6 +7,7 @@ import PromptsList from './pages/PromptsList';
 import PromptEditor from './pages/PromptEditor';
 import PromptDetail from './pages/PromptDetail';
 import Community from './pages/Community';
+import AdminDashboard from './pages/Admindashboard';
 import { AuthProvider } from './context/AuthProvider';
 import { useAuth } from './context/useAuth';
 import { ToastContainer } from 'react-toastify';
@@ -14,6 +15,12 @@ import { ToastContainer } from 'react-toastify';
 const ProtectedRoute = ({ children }) => {
   const { user } = useAuth();
   return user ? children : <Navigate to="/login" replace />;
+};
+
+const AdminRoute = ({ children }) => {
+  const { user } = useAuth();
+  if (!user) return <Navigate to="/login" replace />;
+  return user.role === 'admin' ? children : <Navigate to="/community" replace />;
 };
 
 const App = () => {
@@ -33,6 +40,7 @@ const App = () => {
               <Route path="/prompts/new" element={<ProtectedRoute><PromptEditor /></ProtectedRoute>} />
               <Route path="/prompts/:id" element={<ProtectedRoute><PromptDetail /></ProtectedRoute>} />
               <Route path="/prompts/:id/edit" element={<ProtectedRoute><PromptEditor /></ProtectedRoute>} />
+              <Route path="/admin" element={<AdminRoute><AdminDashboard /></AdminRoute>} />
             </Routes>
           </main>
         </div>

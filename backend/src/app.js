@@ -7,6 +7,7 @@ import authRoutes from './routes/auth.routes.js';
 import promptRoutes from './routes/prompt.routes.js';
 import communityRoutes from './routes/community.routes.js';
 import exportRoutes from './routes/export.routes.js';
+import adminRoutes from './routes/admin.routes.js';
 
 const app = express();
 
@@ -26,6 +27,7 @@ app.use('/api/auth', authRoutes);
 app.use('/api/prompts', promptRoutes);
 app.use('/api/community', communityRoutes);
 app.use('/api/export', exportRoutes);
+app.use('/api/admin', adminRoutes);
 
 export default app;
 

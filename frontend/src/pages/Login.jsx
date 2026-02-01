@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { useAuth } from '../context/useAuth';
 import { Input, Button } from '../components/ui';
@@ -7,18 +7,24 @@ import { toast } from 'react-toastify';
 
 
 const Login = () => {
-  const { login, loading } = useAuth();
+  const { login, loading, user } = useAuth();
   const nav = useNavigate();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
+
+  useEffect(() => {
+    if (!user) return;
+    nav(user.role === 'admin' ? '/admin' : '/prompts', { replace: true });
+  }, [user, nav]);
 
   const onSubmit = async (e) => {
     e.preventDefault();
     setError('');
     const res = await login(email, password);
     if (res.ok) {
-      nav('/prompts');
+      const role = res?.user?.role;
+      nav(role === 'admin' ? '/admin' : '/prompts');
       toast.success('Logged in successfully!');
     } else {
       setError(res.message);

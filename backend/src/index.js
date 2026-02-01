@@ -8,6 +8,7 @@ import authRoutes from './routes/auth.routes.js';
 import promptRoutes from './routes/prompt.routes.js';
 import communityRoutes from './routes/community.routes.js';
 import exportRoutes from './routes/export.routes.js';
+import adminRoutes from './routes/admin.routes.js';
 
 const app = express();
 
@@ -32,10 +33,14 @@ app.use('/api/auth', authRoutes);
 app.use('/api/prompts', promptRoutes);
 app.use('/api/community', communityRoutes);
 app.use('/api/export', exportRoutes);
+app.use('/api/admin', adminRoutes);
 
 // Start server after DB connection
 const PORT = process.env.PORT || 3000;
-const MONGODB_URI = process.env.MONGODB_URI || 'mongodb://localhost:27017/promptvault';
+const MONGODB_URI =
+  process.env.MONGODB_URI ||
+  process.env.MONGO_URI ||
+  'mongodb://localhost:27017/promptvault';
 
 connectDB(MONGODB_URI).then(() => {
   app.listen(PORT, () => {

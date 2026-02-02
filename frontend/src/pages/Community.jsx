@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { api } from '../lib/api';
 import { Button, Input, Tag, Select } from '../components/ui';
 import { useAuth } from '../context/useAuth';
@@ -13,6 +14,7 @@ const Community = () => {
   const [sort, setSort] = useState('trending');
   const [loading, setLoading] = useState(true);
   const { user } = useAuth();
+  const nav = useNavigate();
 
   const load = async () => {
     setLoading(true);
@@ -75,7 +77,16 @@ const Community = () => {
       ) : items.length ? (
         <div className="grid gap-3">
           {items.map((p) => (
-            <div key={p._id} className="relative rounded-lg p-4 bg-gray-100 shadow-sm border-l-4 border-t-2 border-gray-500  shadow-md hover:shadow-lg transition-all duration-200">
+            <div
+              key={p._id}
+              className="relative rounded-lg p-4 bg-gray-100 shadow-sm border-l-4 border-t-2 border-gray-500  shadow-md hover:shadow-lg transition-all duration-200 cursor-pointer"
+              role="button"
+              tabIndex={0}
+              onClick={() => nav(`/community/${p._id}`)}
+              onKeyDown={(e) => {
+                if (e.key === 'Enter' || e.key === ' ') nav(`/community/${p._id}`);
+              }}
+            >
               <CopyButton textToCopy={p.text} />
               <div className="flex items-start justify-between">
 
@@ -85,7 +96,13 @@ const Community = () => {
                 </div>
                 <div className="flex items-center gap-2 pt-5">
 
-                  <button className={`text-sm ${p._liked ? 'text-pink-600' : 'text-gray-600'} cursor-pointer`} onClick={() => onLike(p)}>
+                  <button
+                    className={`text-sm ${p._liked ? 'text-pink-600' : 'text-gray-600'} cursor-pointer`}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      onLike(p);
+                    }}
+                  >
                     ♥ {p.likes || 0}
                   </button>
                 </div>

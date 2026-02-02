@@ -88,6 +88,9 @@ export const api = {
   listPublic(params = {}) {
     return this.request('/community/public', { params });
   },
+  getPublicPrompt(id) {
+    return this.request(`/community/${id}`);
+  },
   likePrompt(id) {
     return this.request(`/community/${id}/like`, { method: 'POST' });
   },

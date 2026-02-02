@@ -17,7 +17,10 @@ const CopyButton = ({ textToCopy }) => {
   return (
     <div className="absolute top-2 right-2">
       <button
-        onClick={handleCopy}
+        onClick={(e) => {
+          e.stopPropagation?.();
+          handleCopy();
+        }}
         className="text-gray-600 hover:text-black transition flex items-center cursor-pointer "
         
       >

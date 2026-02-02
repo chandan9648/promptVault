@@ -1,5 +1,5 @@
 import express from 'express';
-import { auth } from '../middleware/auth.js';
+import { auth, optionalAuth } from '../middleware/auth.js';
 import Prompt from '../models/Prompt.js';
 
 const router = express.Router();
@@ -46,6 +46,23 @@ router.get('/public', async (req, res) => {
     res.json(prompts);
   } catch (err) {
     res.status(500).json({ message: 'Failed to fetch public prompts' });
+  }
+});
+
+// Public prompt detail
+router.get('/:id', optionalAuth, async (req, res) => {
+  try {
+    const p = await Prompt.findOne({ _id: req.params.id, isPublic: true });
+    if (!p) return res.status(404).json({ message: 'Not found' });
+
+    const obj = p.toObject({ virtuals: true });
+    const userId = req.user?.id;
+    obj._liked = userId ? (obj.likedBy || []).some((id) => id.toString() === userId) : false;
+    delete obj.likedBy;
+
+    return res.json(obj);
+  } catch (err) {
+    return res.status(500).json({ message: 'Failed to fetch prompt' });
   }
 });
 

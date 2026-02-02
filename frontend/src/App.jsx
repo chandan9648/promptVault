@@ -7,6 +7,7 @@ import PromptsList from './pages/PromptsList';
 import PromptEditor from './pages/PromptEditor';
 import PromptDetail from './pages/PromptDetail';
 import Community from './pages/Community';
+import CommunityPromptDetail from './pages/CommunityPromptDetail';
 import AdminDashboard from './pages/Admindashboard';
 import { AuthProvider } from './context/AuthProvider';
 import { useAuth } from './context/useAuth';
@@ -36,6 +37,7 @@ const App = () => {
               <Route path="/login" element={<Login />} />
               <Route path="/register" element={<Register />} />
               <Route path="/community" element={<Community />} />
+              <Route path="/community/:id" element={<CommunityPromptDetail />} />
               <Route path="/prompts" element={<ProtectedRoute><PromptsList /></ProtectedRoute>} />
               <Route path="/prompts/new" element={<ProtectedRoute><PromptEditor /></ProtectedRoute>} />
               <Route path="/prompts/:id" element={<ProtectedRoute><PromptDetail /></ProtectedRoute>} />

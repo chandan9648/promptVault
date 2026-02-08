@@ -62,4 +62,33 @@ router.get('/users/summary', auth, requireAdmin, async (req, res) => {
   }
 });
 
+// Delete a user (admin only). Also deletes the user's prompts.
+router.delete('/users/:id', auth, requireAdmin, async (req, res) => {
+  try {
+    const user = await User.findById(req.params.id);
+    if (!user) return res.status(404).json({ message: 'User not found' });
+    if (user.role === 'admin')
+      return res.status(400).json({ message: 'Cannot delete an admin user' });
+
+    // Remove likes by this user from other prompts and keep likes in sync.
+    await Prompt.updateMany(
+      { likedBy: user._id },
+      [
+        { $set: { likedBy: { $setDifference: ['$likedBy', [user._id]] } } },
+        { $set: { likes: { $size: '$likedBy' } } },
+      ]
+    );
+
+    // Delete prompts owned by the user.
+    await Prompt.deleteMany({ owner: user._id });
+
+    // Finally delete the user.
+    await User.deleteOne({ _id: user._id });
+
+    res.json({ success: true });
+  } catch (err) {
+    res.status(500).json({ message: 'Failed to delete user' });
+  }
+});
+
 export default router;

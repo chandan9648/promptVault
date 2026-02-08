@@ -116,6 +116,9 @@ export const api = {
   adminUsersSummary() {
     return this.request('/admin/users/summary');
   },
+  adminDeleteUser(id) {
+    return this.request(`/admin/users/${id}`, { method: 'DELETE' });
+  },
 };
 
 export default api;

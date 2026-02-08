@@ -9,9 +9,9 @@ const NavBar = () => {
   const linkCls = ({ isActive }) => `px-3 py-2 rounded-md text-sm font-medium ${isActive ? 'bg-blue-600 text-white' : 'text-gray-700 hover:bg-gray-100'}`;
   const mobileLinkCls = ({ isActive }) => `block ${linkCls({ isActive })}`;
   return (
-    <header className=" shadow-sm bg-gray-200 sticky top-0 z-20">
+    <header className=" shadow-sm bg-gray- sticky top-0 z-20">
       <div className="mx-auto max-w-6xl px-4 h-14 flex items-center justify-between relative">
-        <Link to="/" className="font-semibold text-lg"><span className=''>P</span> PromptVault</Link>
+        <Link to="/" className="font-semibold text-lg"><span className='bg-gray-500 p-1 rounded-md text-white text-center pt-0 pr-1 pl-1 '> P </span> PromptVault</Link>
         {/* Mobile hamburger */}
         <button
           type="button"

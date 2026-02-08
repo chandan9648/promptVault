@@ -11,7 +11,7 @@ const NavBar = () => {
   return (
     <header className=" shadow-sm bg-gray- sticky top-0 z-20">
       <div className="mx-auto max-w-6xl px-4 h-14 flex items-center justify-between relative">
-        <Link to="/" className="font-semibold text-lg"><span className='bg-gray-500 p-1 rounded-md text-white text-center pt-0 pr-1 pl-1 '> P </span> PromptVault</Link>
+        <Link to="/" className="font-semibold text-lg"><span className='bg-gray-500 p-1 rounded-md text-white text-center pt-0 pr-1 pl-1 mr-1'> P </span> PromptVault</Link>
         {/* Mobile hamburger */}
         <button
           type="button"

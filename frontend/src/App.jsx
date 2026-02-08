@@ -29,9 +29,9 @@ const App = () => {
     <BrowserRouter>
       <AuthProvider>
         <ToastContainer />
-        <div className="min-h-screen bg-gray-100">
+        <div className="min-h-screen bg-gray-50 text-gray-900">
           <NavBar />
-          <main className="py-6">
+          <main className="py-8">
             <Routes>
               <Route path="/" element={<Navigate to="/community" replace />} />
               <Route path="/login" element={<Login />} />

@@ -3,7 +3,10 @@ import React from 'react';
 export const Input = ({ label, error, className = '', ...props }) => (
   <label className="block">
     {label && <span className="block text-sm font-medium text-gray-700 mb-1">{label}</span>}
-    <input className={`w-full rounded-md border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 ${className}`} {...props} />
+    <input
+      className={`w-full rounded-md border border-gray-300 bg-white px-3 py-2 text-gray-900 placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 ${className}`}
+      {...props}
+    />
     {error && <span className="text-xs text-red-600 mt-1 block">{error}</span>}
   </label>
 );
@@ -11,17 +14,23 @@ export const Input = ({ label, error, className = '', ...props }) => (
 export const Textarea = ({ label, error, className = '', ...props }) => (
   <label className="block">
     {label && <span className="block text-sm font-medium text-gray-700 mb-1">{label}</span>}
-    <textarea className={`w-full rounded-md border border-gray-300 px-3 py-2 h-32 focus:outline-none focus:ring-2 focus:ring-blue-500 ${className}`} {...props} />
+    <textarea
+      className={`w-full rounded-md border border-gray-300 bg-white px-3 py-2 text-gray-900 placeholder:text-gray-400 h-32 focus:outline-none focus:ring-2 focus:ring-blue-500 ${className}`}
+      {...props}
+    />
     {error && <span className="text-xs text-red-600 mt-1 block">{error}</span>}
   </label>
 );
 
 export const Button = ({ children, variant = 'primary', className = '', ...props }) => {
-  const base = 'inline-flex items-center justify-center rounded-md text-sm font-medium px-4 py-2';
+  const base =
+    'inline-flex items-center justify-center rounded-md text-sm font-medium px-4 py-2 transition-colors disabled:opacity-60 disabled:cursor-not-allowed';
   const variants = {
     primary: 'bg-blue-600 text-white hover:bg-blue-700',
-    secondary: 'bg-gray-100 hover:bg-gray-200',
+    secondary: 'bg-gray-100 text-gray-900 hover:bg-gray-200',
     danger: 'bg-red-600 text-white hover:bg-red-700',
+    outline: 'border border-gray-300 bg-white text-gray-900 hover:bg-gray-50',
+    ghost: 'text-gray-700 hover:bg-gray-100',
   };
   return (
     <button className={`${base} ${variants[variant] || ''} ${className}`} {...props}>

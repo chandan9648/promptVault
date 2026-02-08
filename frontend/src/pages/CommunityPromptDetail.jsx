@@ -5,6 +5,7 @@ import { Button, Tag } from '../components/ui';
 import CopyButton from '../components/HandleCopy';
 import Loader from '../components/Loader';
 import { useAuth } from '../context/useAuth';
+import { ArrowLeft, Heart } from 'lucide-react';
 
 const CommunityPromptDetail = () => {
   const { id } = useParams();
@@ -59,33 +60,44 @@ const CommunityPromptDetail = () => {
   if (!p) return <div className="p-4">{error || <Loader />}</div>;
 
   return (
-    <div className="max-w-3xl mx-auto p-4 overflow-x-hidden border-l-4 border-t-2 border-gray-500 rounded-lg shadow-lg hover:shadow-xl transition-all duration-200">
-      <div className="flex items-start justify-between gap-3 flex-wrap">
-        <div>
-          <h1 className="text-2xl font-semibold">{p.title}</h1>
-          {p.description && <p className="text-gray-600 mt-1">{p.description}</p>}
+    <div className="max-w-3xl mx-auto px-4">
+      <div className="rounded-2xl bg-white shadow-md overflow-hidden">
+        <div className="p-6">
+          <div className="flex flex-wrap items-start justify-between gap-4">
+            <div className="min-w-0">
+              <h1 className="text-2xl font-semibold truncate">{p.title}</h1>
+              {p.description && <p className="text-gray-600 mt-1">{p.description}</p>}
+              <div className="mt-4 flex flex-wrap gap-1">
+                {p.category && <Tag>{p.category}</Tag>}
+              </div>
+            </div>
+
+            <div className="flex flex-wrap items-center gap-2">
+              <button
+                className={`inline-flex items-center gap-1 rounded-full border px-3 py-2 text-sm font-semibold ${
+                  p._liked ? 'text-pink-600 bg-pink-50 border-pink-200' : 'text-gray-700 bg-white'
+                } disabled:opacity-60`}
+                onClick={onLike}
+                disabled={busy}
+                title={user ? 'Like' : 'Login to like'}
+              >
+                <Heart size={16} fill={p._liked ? 'currentColor' : 'none'} />
+                {p.likes || 0}
+              </button>
+              <Button variant="outline" className="gap-2" onClick={() => nav('/community')}>
+                <ArrowLeft size={16} />
+                Back
+              </Button>
+            </div>
+          </div>
         </div>
 
-        <div className="flex gap-3 items-center">
-          <button
-            className={`text-sm ${p._liked ? 'text-pink-600' : 'text-gray-600'} cursor-pointer`}
-            onClick={onLike}
-            disabled={busy}
-            title={user ? 'Like' : 'Login to like'}
-          >
-            ♥ {p.likes || 0}
-          </button>
-          <Button variant="secondary" onClick={() => nav('/community')}>Back</Button>
+        <div className="p-6 bg-gray-50">
+          <div className="relative whitespace-pre-wrap rounded-xl border bg-white p-5 text-gray-900">
+            <CopyButton textToCopy={p.text} />
+            {p.text}
+          </div>
         </div>
-      </div>
-
-      <div className="mt-3 flex flex-wrap">
-        {p.category && <Tag>{p.category}</Tag>}
-      </div>
-
-      <div className="mt-6 whitespace-pre-wrap bg-gray-100 p-6 rounded-lg shadow-sm relative">
-        <CopyButton textToCopy={p.text} />
-        {p.text}
       </div>
     </div>
   );

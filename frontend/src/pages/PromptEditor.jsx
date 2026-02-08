@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { api } from '../lib/api';
 import { Button, Input, Textarea } from '../components/ui';
+import { ArrowLeft, Save } from 'lucide-react';
 
 const toArray = (s) => s.split(',').map((x) => x.trim()).filter(Boolean);
 
@@ -48,9 +49,19 @@ const PromptEditor = () => {
 
   //EDIT PROMPT PAGE 
   return (
-    <div className="max-w-3xl mx-auto p-4">
-      <h1 className="text-2xl font-semibold mb-4">{editing ? 'Edit' : 'New'} Prompt</h1>
-      <form onSubmit={onSubmit} className="space-y-4 bg-white p-6 rounded-lg shadow">
+    <div className="max-w-3xl mx-auto px-4">
+      <div className="flex flex-wrap items-center justify-between gap-3 mb-4">
+        <div>
+          <h1 className="text-2xl font-semibold">{editing ? 'Edit' : 'New'} Prompt</h1>
+          <p className="text-sm text-gray-600 mt-1">Keep titles short and prompts clear.</p>
+        </div>
+        <Button variant="outline" type="button" className="gap-2" onClick={() => nav(-1)}>
+          <ArrowLeft size={16} />
+          Back
+        </Button>
+      </div>
+
+      <form onSubmit={onSubmit} className="space-y-4 rounded-2xl bg-white p-6 shadow-md">
         <Input label="Title" value={form.title} onChange={(e) => update('title', e.target.value)} required minLength={2} />
         <Input label="Description" value={form.description} onChange={(e) => update('description', e.target.value)} />
         <Textarea label="Prompt text" value={form.text} onChange={(e) => update('text', e.target.value)} required minLength={5} />
@@ -59,10 +70,19 @@ const PromptEditor = () => {
           <Input label="Category" value={form.category} onChange={(e) => update('category', e.target.value)} />
           <Input label="Folder" value={form.folder} onChange={(e) => update('folder', e.target.value)} />
         </div>
-        {error && <div className="text-sm text-red-600">{error}</div>}
-        <div className="flex gap-2 ">
-          <Button className='cursor-pointer'  type="submit">Save</Button>
-          <Button className='bg-red-400 cursor-pointer' type="button" variant="secondary" onClick={() => nav(-1)}>Cancel</Button>
+        {error && (
+          <div className="rounded-lg border border-red-200 bg-red-50 px-3 py-2 text-sm text-red-700">
+            {error}
+          </div>
+        )}
+        <div className="flex flex-wrap gap-2">
+          <Button type="submit" className="gap-2">
+            <Save size={16} />
+            Save
+          </Button>
+          <Button type="button" variant="secondary" onClick={() => nav(-1)}>
+            Cancel
+          </Button>
         </div>
       </form>
     </div>

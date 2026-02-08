@@ -5,6 +5,7 @@ import { Button, Input, Tag, Select } from '../components/ui';
 import { useAuth } from '../context/useAuth';
 import CopyButton from '../components/HandleCopy';
 import Loader from '../components/Loader';
+import { Flame, Heart, Search } from 'lucide-react';
 
 
 const Community = () => {
@@ -48,8 +49,16 @@ const Community = () => {
   })();
 
   return (
-    <div className="max-w-6xl mx-auto p-4 overflow-x-hidden">
-      <h1 className="text-2xl font-semibold mb-4">Community</h1>
+    <div className="max-w-6xl mx-auto px-4">
+      <div className="flex flex-wrap items-end justify-between gap-3 mb-4">
+        <div>
+          <h1 className="text-2xl font-semibold flex items-center gap-2">
+            <Flame size={20} className="text-gray-700" />
+            Community
+          </h1>
+          <p className="text-sm text-gray-600 mt-1">Browse public prompts and save your favorites.</p>
+        </div>
+      </div>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3 mb-4 overflow-hidden">
         <div className="min-w-0">
           <Input placeholder="Search…" value={q} onChange={(e) => setQ(e.target.value)} />
@@ -69,7 +78,10 @@ const Community = () => {
           />
         </div>
         <div className="min-w-0">
-          <Button className='cursor-pointer w-full md:w-auto' onClick={load}>Apply</Button>
+          <Button className='w-full md:w-auto gap-2' onClick={load}>
+            <Search size={16} />
+            Apply
+          </Button>
         </div>
       </div>
       {loading ? (
@@ -79,7 +91,7 @@ const Community = () => {
           {items.map((p) => (
             <div
               key={p._id}
-              className="relative rounded-lg p-4 bg-gray-100 shadow-sm border-l-4 border-t-2 border-gray-500  shadow-md hover:shadow-lg transition-all duration-200 cursor-pointer"
+              className="relative rounded-2xl bg-white p-5 pr-14 shadow-md hover:shadow-lg hover:bg-gray-50 cursor-pointer"
               role="button"
               tabIndex={0}
               onClick={() => nav(`/community/${p._id}`)}
@@ -88,22 +100,29 @@ const Community = () => {
               }}
             >
               <CopyButton textToCopy={p.text} />
-              <div className="flex items-start justify-between">
+              <div className="flex items-start justify-between gap-4">
 
-                <div>
-                  <div className="font-semibold text-lg">{p.title}</div>
-                  {p.description && <p className="text-sm text-gray-600 mt-1">{p.description}</p>}
+                <div className="min-w-0 flex-1">
+                  <div className="font-semibold text-lg text-gray-900 truncate">{p.title}</div>
+                  {p.description && (
+                    <p className="text-sm text-gray-600 mt-1 line-clamp-2">
+                      {p.description}
+                    </p>
+                  )}
                 </div>
-                <div className="flex items-center gap-2 pt-5">
-
+                <div className="flex items-center gap-2 shrink-0">
                   <button
-                    className={`text-sm ${p._liked ? 'text-pink-600' : 'text-gray-600'} cursor-pointer`}
+                    className={`inline-flex items-center gap-1 rounded-full shadow-md px-3 py-1 text-xs font-semibold ${
+                      p._liked ? 'text-pink-600 bg-pink-50 border-pink-200' : 'text-gray-700 bg-white'
+                    }`}
                     onClick={(e) => {
                       e.stopPropagation();
                       onLike(p);
                     }}
+                    title={user ? 'Like' : 'Login to like'}
                   >
-                    ♥ {p.likes || 0}
+                    <Heart size={14} fill={p._liked ? 'currentColor' : 'none'} />
+                    {p.likes || 0}
                   </button>
                 </div>
               </div>

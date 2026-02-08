@@ -4,6 +4,7 @@ import { api } from '../lib/api';
 import { Button, Tag } from '../components/ui';
 import CopyButton from '../components/HandleCopy';
 import Loader from '../components/Loader';
+import { ArrowLeft, Calendar, Pencil, Globe, GlobeLock, Clock } from 'lucide-react';
 
 
 const PromptDetail = () => {
@@ -59,37 +60,60 @@ const PromptDetail = () => {
   //INSIDE PROMPT DETAIL PAGE
 
   return (
-    <div className="max-w-3xl mx-auto p-4 overflow-x-hidden border-l-4 border-t-2 border-gray-500 rounded-lg shadow-lg hover:shadow-xl transition-all duration-200">
-      <div className="flex items-start justify-between gap-3 flex-wrap">
-        <div>
-          <h1 className="text-2xl font-semibold">{p.title}</h1>
-          {p.description && <p className="text-gray-600 mt-1">{p.description}</p>}
+    <div className="max-w-3xl mx-auto px-4">
+      <div className="rounded-2xl bg-white shadow-md overflow-hidden">
+        <div className="p-6">
+          <div className="flex flex-wrap items-start justify-between gap-4">
+            <div className="min-w-0">
+              <h1 className="text-2xl font-semibold truncate">{p.title}</h1>
+              {p.description && <p className="text-gray-600 mt-1">{p.description}</p>}
 
-            {/*  Date & Time Section */}
-          <div className="text-sm text-gray-500 mt-2 bg-gray-200 p-2 rounded">
-            <p>📅 Created: {createdAt}</p>
-            <p>🕒 Last Updated: {updatedAt}</p>
+              <div className="mt-3 flex flex-wrap items-center gap-2 text-xs text-gray-600">
+                <span className="inline-flex items-center gap-1 rounded-full bg-gray-100 px-2.5 py-1">
+                  <Calendar size={14} className="text-gray-500" />
+                  Created {createdAt}
+                </span>
+                <span className="inline-flex items-center gap-1 rounded-full bg-gray-100 px-2.5 py-1">
+                  <Clock size={14} className="text-gray-500" />
+                  Updated {updatedAt}
+                </span>
+              </div>
+            </div>
+
+            <div className="flex flex-wrap items-center gap-2">
+              <Link to={`/prompts/${p._id}/edit`} className="inline-flex">
+                <Button variant="outline" className="gap-2 cursor-pointer">
+                  <Pencil size={16} />
+                  Edit
+                </Button>
+              </Link>
+              <Button variant="outline" className="gap-2 cursor-pointer" onClick={() => nav('/prompts')}>
+                <ArrowLeft size={16} />
+                Back
+              </Button>
+            </div>
+          </div>
+
+          <div className="mt-4 flex flex-wrap gap-1 ">
+            {p.category && <Tag>{p.category}</Tag>}
+            {p.folder && <Tag>{p.folder}</Tag>}
+            {p.isPublic && <Tag>Public</Tag>}
           </div>
         </div>
 
-        <div className="flex gap-4 ">
-          <Link to={`/prompts/${p._id}/edit`} className="text-blue-600 mt-2 hover:bg-blue-200 rounded p-1">Edit</Link>
-          <Button variant="secondary" onClick={() => nav('/prompts')}>Back</Button>
-        </div>
-      </div>
-      <div className="mt-3 flex flex-wrap">
-      {/* Tags hidden */}
-        {p.category && <Tag>{p.category}</Tag>}
-        {p.folder && <Tag>{p.folder}</Tag>}
-        {p.isPublic && <Tag>Public</Tag>}
-      </div>
+        <div className="p-6 bg-gray-50">
+          <div className="relative whitespace-pre-wrap rounded-xl bg-white p-5 text-gray-900 shadow-sm">
+            <CopyButton textToCopy={p.text} />
+            {p.text}
+          </div>
 
-      <div className="mt-6 whitespace-pre-wrap bg-gray-100 p-6 rounded-lg shadow-sm relative">
-        <CopyButton textToCopy={p.text} />
-        {p.text}
-      </div>
-      <div className="mt-4">
-        <Button variant="secondary" onClick={togglePub}>{p.isPublic ? 'Unpublish' : 'Publish'}</Button>
+          <div className="mt-4">
+            <Button variant="secondary" className="gap-2 cursor-pointer" onClick={togglePub}>
+              {p.isPublic ? <GlobeLock size={16} /> : <Globe size={16} />}
+              {p.isPublic ? 'Unpublish' : 'Publish'}
+            </Button>
+          </div>
+        </div>
       </div>
     </div>
   );

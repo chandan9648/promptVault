@@ -1,36 +1,44 @@
 import React, { useState } from 'react';
 import { Link, NavLink } from 'react-router-dom';
 import { useAuth } from '../context/useAuth';
+import { LogOut, Menu, Shield, User, X } from 'lucide-react';
 
 const NavBar = () => {
   const { user, logout } = useAuth();
   const [open, setOpen] = useState(false);
   const isAdmin = user?.role === 'admin';
-  const linkCls = ({ isActive }) => `px-3 py-2 rounded-md text-sm font-medium ${isActive ? 'bg-blue-600 text-white' : 'text-gray-700 hover:bg-gray-100'}`;
+  const linkCls = ({ isActive }) =>
+    `px-3 py-2 rounded-lg text-sm font-medium transition-colors ${
+      isActive ? 'bg-blue-600 text-white' : 'text-gray-700 hover:bg-gray-100'
+    }`;
   const mobileLinkCls = ({ isActive }) => `block ${linkCls({ isActive })}`;
+
+  const initials = (value) => {
+    const s = String(value || '').trim();
+    if (!s) return '?';
+    const [a, b] = s.split(/\s+/).filter(Boolean);
+    return `${a?.[0] || '?'}${b?.[0] || ''}`.toUpperCase();
+  };
+
   return (
-    <header className=" shadow-sm bg-gray- sticky top-0 z-20">
+    <header className="sticky top-0 z-20 bg-white/90 backdrop-blur shadow-sm">
       <div className="mx-auto max-w-6xl px-4 h-14 flex items-center justify-between relative">
-        <Link to="/" className="font-semibold text-lg"><span className='bg-gray-500 p-1 rounded-md text-white text-center pt-0 pr-1 pl-1 mr-1'> P </span> PromptVault</Link>
+        <Link to="/" className="inline-flex items-center gap-2 font-semibold text-lg">
+          <span className="inline-flex h-9 w-9 items-center justify-center rounded-xl bg-blue-50 text-blue-700 border">
+            <Shield size={18} />
+          </span>
+          <span>PromptVault</span>
+        </Link>
         {/* Mobile hamburger */}
         <button
           type="button"
-          className="md:hidden inline-flex items-center justify-center p-2 rounded-md text-gray-700 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500"
+          className="md:hidden inline-flex items-center justify-center p-2 rounded-md text-gray-700 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500 cursor-pointer"
           aria-controls="mobile-menu"
           aria-expanded={open}
           onClick={() => setOpen((v) => !v)}
         >
           <span className="sr-only">Toggle navigation</span>
-          {/* Icon: hamburger / close */}
-          {open ? (
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="h-6 w-6">
-              <path fillRule="evenodd" d="M5.47 5.47a.75.75 0 0 1 1.06 0L12 10.94l5.47-5.47a.75.75 0 1 1 1.06 1.06L13.06 12l5.47 5.47a.75.75 0 1 1-1.06 1.06L12 13.06l-5.47 5.47a.75.75 0 0 1-1.06-1.06L10.94 12 5.47 6.53a.75.75 0 0 1 0-1.06Z" clipRule="evenodd" />
-            </svg>
-          ) : (
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="h-6 w-6">
-              <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
-            </svg>
-          )}
+          {open ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
         </button>
 
         {/* Desktop nav */}
@@ -56,10 +64,20 @@ const NavBar = () => {
             </>
           )}
           {user && (
-            <div className="flex items-center gap-3 ml-2">
-              <span className="text-bold  text-green-600">👋{user.name}</span>
-              <button onClick={logout} className="px-3 py-2 rounded-md text-sm font-medium bg-red-400 hover:bg-red-500 cursor-pointer">Logout</button>
-
+            <div className="flex items-center gap-2 ml-2">
+              <div className="inline-flex items-center gap-2 rounded-full border bg-white px-2.5 py-1 text-sm text-gray-700">
+                <span className="inline-flex h-7 w-7 items-center justify-center rounded-full bg-gray-100 text-xs font-semibold text-gray-700">
+                  {initials(user.name)}
+                </span>
+                <span className="max-w-[140px] truncate">{user.name}</span>
+              </div>
+              <button
+                onClick={logout}
+                className="inline-flex items-center gap-2 rounded-lg border px-3 py-2 text-sm font-medium text-gray-700 hover:bg-red-200 cursor-pointer"
+              >
+                <LogOut size={16} />
+                Logout
+              </button>
             </div>
           )}
         </nav>
@@ -68,7 +86,7 @@ const NavBar = () => {
         {open && (
           <div
             id="mobile-menu"
-            className="absolute top-14 left-0 right-0 md:hidden bg-white border border-gray-200 rounded-md shadow-lg p-2"
+            className="absolute top-14 left-0 right-0 md:hidden bg-white border border-gray-200 rounded-xl shadow-sm p-2"
           >
             <div className="flex flex-col gap-1">
               {user && (
@@ -77,8 +95,9 @@ const NavBar = () => {
                     <NavLink to="/admin" className={mobileLinkCls} onClick={() => setOpen(false)}>Admin</NavLink>
                   ) : (
                     <>
-                      <NavLink to="/prompts" className={mobileLinkCls} onClick={() => setOpen(false)}>My Prompts</NavLink>
+      
                       <NavLink to="/community" className={mobileLinkCls} onClick={() => setOpen(false)}>Community</NavLink>
+                       <NavLink to="/prompts" className={mobileLinkCls} onClick={() => setOpen(false)}>My Prompts</NavLink>
                       <NavLink to="/prompts/new" className={mobileLinkCls} onClick={() => setOpen(false)}>New</NavLink>
                     </>
                   )}
@@ -93,11 +112,15 @@ const NavBar = () => {
               )}
               {user && (
                 <div className="mt-1 border-t pt-2">
-                  <div className="px-3 py-2 text-sm text-gray-700">👋 {user.name}</div>
+                  <div className="px-3 py-2 text-sm text-gray-700 inline-flex items-center gap-2">
+                    <User size={16} className="text-gray-500" />
+                    <span className="truncate">{user.name}</span>
+                  </div>
                   <button
                     onClick={() => { logout(); setOpen(false); }}
-                    className="w-full text-left px-3 py-2 rounded-md text-sm font-medium bg-red-400 hover:bg-red-500 text-white"
+                    className="w-full inline-flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium border text-gray-700 hover:bg-red-200 cursor-pointer"
                   >
+                    <LogOut size={16} />
                     Logout
                   </button>
                 </div>

@@ -164,7 +164,7 @@ const AdminDashboard = () => {
 
       <div className="mt-6">
         {loading && (
-          <div className="rounded-xl border bg-white p-4 text-gray-700 shadow-sm">
+          <div className="rounded-xl shadow-md bg-white p-4 text-gray-700 shadow-sm">
             <div className="flex items-center gap-2">
               <span className="inline-flex h-2 w-2 rounded-full bg-blue-500" />
               Loading stats…
@@ -173,7 +173,7 @@ const AdminDashboard = () => {
         )}
 
         {!loading && error && (
-          <div className="rounded-xl border border-red-200 bg-red-50 p-4 text-red-700 shadow-sm">
+          <div className="rounded-xl shadow-md bg-red-50 p-4 text-red-700 shadow-sm">
             <div className="flex items-center gap-2">
               <FiAlertCircle />
               <span>{error}</span>
@@ -183,7 +183,7 @@ const AdminDashboard = () => {
 
         {!loading && !error && stats && (
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            <div className="rounded-2xl border bg-white p-5 shadow-sm">
+            <div className="rounded-2xl shadow-md bg-white p-5">
               <div className="flex items-center justify-between">
                 <div>
                   <div className="text-sm text-gray-500">Total Users</div>
@@ -195,7 +195,7 @@ const AdminDashboard = () => {
                 </div>
               </div>
             </div>
-            <div className="rounded-2xl border bg-white p-5 shadow-sm">
+            <div className="rounded-2xl shadow-md bg-white p-5">
               <div className="flex items-center justify-between">
                 <div>
                   <div className="text-sm text-gray-500">Shared Prompts (Public)</div>

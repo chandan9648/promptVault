@@ -84,7 +84,7 @@ const CommunityPromptDetail = () => {
                 <Heart size={16} fill={p._liked ? 'currentColor' : 'none'} />
                 {p.likes || 0}
               </button>
-              <Button variant="outline" className="gap-2" onClick={() => nav('/community')}>
+              <Button variant="outline" className="gap-2 cursor-pointer" onClick={() => nav('/community')}>
                 <ArrowLeft size={16} />
                 Back
               </Button>

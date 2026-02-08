@@ -29,7 +29,7 @@ const App = () => {
     <BrowserRouter>
       <AuthProvider>
         <ToastContainer />
-        <div className="min-h-screen bg-gray-50">
+        <div className="min-h-screen bg-gray-100">
           <NavBar />
           <main className="py-6">
             <Routes>

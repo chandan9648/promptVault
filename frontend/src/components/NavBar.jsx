@@ -66,14 +66,14 @@ const NavBar = () => {
           {user && (
             <div className="flex items-center gap-2 ml-2">
               <div className="inline-flex items-center gap-2 rounded-full border bg-white px-2.5 py-1 text-sm text-gray-700">
-                <span className="inline-flex h-7 w-7 items-center justify-center rounded-full bg-gray-100 text-xs font-semibold text-gray-700">
+                <span className="inline-flex h-7 w-7 items-center justify-center rounded-full bg-gray-100 text-xs font-semibold text-gray-700 text-green-600">
                   {initials(user.name)}
                 </span>
-                <span className="max-w-[140px] truncate">{user.name}</span>
+                <span className="max-w-[140px] truncate text-green-600">{user.name}</span>
               </div>
               <button
                 onClick={logout}
-                className="inline-flex items-center gap-2 rounded-lg border px-3 py-2 text-sm font-medium text-gray-700 hover:bg-red-200 cursor-pointer"
+                className="inline-flex items-center gap-2 rounded-lg border px-3 py-2 text-sm font-medium text-gray-700 hover:bg-red-300 cursor-pointer text-red-600"
               >
                 <LogOut size={16} />
                 Logout
@@ -114,11 +114,11 @@ const NavBar = () => {
                 <div className="mt-1 border-t pt-2">
                   <div className="px-3 py-2 text-sm text-gray-700 inline-flex items-center gap-2">
                     <User size={16} className="text-gray-500" />
-                    <span className="truncate">{user.name}</span>
+                    <span className="truncate text-green-600">{user.name}</span>
                   </div>
                   <button
                     onClick={() => { logout(); setOpen(false); }}
-                    className="w-full inline-flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium border text-gray-700 hover:bg-red-200 cursor-pointer"
+                    className="w-full inline-flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium border text-gray-700 hover:bg-red-200 cursor-pointer text-red-600"
                   >
                     <LogOut size={16} />
                     Logout

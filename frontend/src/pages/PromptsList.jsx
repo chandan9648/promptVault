@@ -81,7 +81,7 @@ const PromptCard = ({ p, selected, onSelect, onDelete, onPublishToggle }) => (
       </div>
 
       <div className="mt-4">
-        <Button className="gap-2" variant="secondary" onClick={() => onPublishToggle(p)}>
+        <Button className="gap-2 cursor-pointer" variant="secondary" onClick={() => onPublishToggle(p)}>
           {p.isPublic ? <GlobeLock size={16} /> : <Globe size={16} />}
           {p.isPublic ? 'Unpublish' : 'Publish'}
         </Button>

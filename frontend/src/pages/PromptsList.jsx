@@ -10,20 +10,20 @@ import { FilePlus2, Pencil, Search, Trash2, Globe, GlobeLock } from 'lucide-reac
 
 
 //  Format date and time
-  const formatDateTime = (dateString) => {
-    if (!dateString) return 'N/A';
-    const date = new Date(dateString);
+const formatDateTime = (dateString) => {
+  if (!dateString) return 'N/A';
+  const date = new Date(dateString);
 
-    // Format date: dd/mm/yy
-    const day = String(date.getDate()).padStart(2, '0');
-    const month = String(date.getMonth() + 1).padStart(2, '0');
-    const year = String(date.getFullYear()).slice(-2);
+  // Format date: dd/mm/yy
+  const day = String(date.getDate()).padStart(2, '0');
+  const month = String(date.getMonth() + 1).padStart(2, '0');
+  const year = String(date.getFullYear()).slice(-2);
 
-    // Format time: hh:mm:ss (24-hour)
-    const hours = String(date.getHours()).padStart(2, '0');
-    const minutes = String(date.getMinutes()).padStart(2, '0');
-    return `${day}/${month}/${year} ${hours}:${minutes}`;
-  };
+  // Format time: hh:mm:ss (24-hour)
+  const hours = String(date.getHours()).padStart(2, '0');
+  const minutes = String(date.getMinutes()).padStart(2, '0');
+  return `${day}/${month}/${year} ${hours}:${minutes}`;
+};
 
 
 // Prompt card component
@@ -62,10 +62,12 @@ const PromptCard = ({ p, selected, onSelect, onDelete, onPublishToggle }) => (
           >
             <Pencil size={16} />
           </Link>
+
+          {/* Delete button with confirmation */}
           <button
             type="button"
             onClick={() => onDelete(p)}
-            className="inline-flex items-center justify-center rounded-lg border bg-white p-2 text-red-700 hover:bg-red-50"
+            className="inline-flex items-center justify-center rounded-lg border bg-white p-2 text-red-700 hover:bg-red-50 cursor-pointer"
             aria-label={`Delete ${p.title}`}
             title="Delete"
           >
@@ -79,6 +81,7 @@ const PromptCard = ({ p, selected, onSelect, onDelete, onPublishToggle }) => (
         {p.folder && <Tag>{p.folder}</Tag>}
         {p.isPublic && <Tag>Public</Tag>}
       </div>
+
 
       <div className="mt-4">
         <Button className="gap-2 cursor-pointer" variant="secondary" onClick={() => onPublishToggle(p)}>
@@ -191,7 +194,7 @@ const PromptsList = () => {
               onPublishToggle={onPublishToggle}
             />
           ))}
-          
+
         </div>
       ) : (
         <div className="rounded-2xl bg-white p-8 text-gray-700 shadow-md">

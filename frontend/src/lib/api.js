@@ -55,48 +55,70 @@ export const api = {
     const res = await instance.request({ url: path, method, data: body, params, headers });
     return res.data;
   },
+
   // Auth
   login(creds) {
     return this.request('/auth/login', { method: 'POST', body: creds });
   },
+
   register(data) {
     return this.request('/auth/register', { method: 'POST', body: data });
   },
+
   // Prompts CRUD
   listPrompts(params = {}) {
     return this.request('/prompts', { params });
   },
+
   getPrompt(id) {
     return this.request(`/prompts/${id}`);
   },
+  
+  //create propmt
   createPrompt(data) {
     return this.request('/prompts', { method: 'POST', body: data });
   },
+
+  //update prompt
   updatePrompt(id, data) {
     return this.request(`/prompts/${id}`, { method: 'PUT', body: data });
   },
+
+  //delete prompt
   deletePrompt(id) {
     return this.request(`/prompts/${id}`, { method: 'DELETE' });
   },
+
   // Community
   publishPrompt(id) {
     return this.request(`/community/${id}/publish`, { method: 'POST' });
   },
+
+  //unpublish prompt
   unpublishPrompt(id) {
     return this.request(`/community/${id}/unpublish`, { method: 'POST' });
   },
+
+  //list public prompt
   listPublic(params = {}) {
     return this.request('/community/public', { params });
   },
+
+  //get public prompt detail
   getPublicPrompt(id) {
     return this.request(`/community/${id}`);
   },
+
+  //like prompt
   likePrompt(id) {
     return this.request(`/community/${id}/like`, { method: 'POST' });
   },
+
+  //unlike prompt
   unlikePrompt(id) {
     return this.request(`/community/${id}/unlike`, { method: 'POST' });
   },
+  
   // Export
   exportJson(ids) {
     return this.request('/export/json', { method: 'POST', body: { ids } });

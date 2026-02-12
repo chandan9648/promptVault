@@ -21,10 +21,10 @@ npm install
 npm run dev
 ```
 
-Visit http://localhost:5000/health
+Visit http://localhost:3000/health
 
 ## Environment Variables
-- PORT: default 5000
+- PORT: default 3000
 - MONGODB_URI: e.g., mongodb://localhost:27017/promptvault
 - JWT_SECRET: long random string
 - GEMINI_API_KEY: optional, enables real AI tagging

@@ -27,18 +27,17 @@ const ExportBar = ({ selectedIds = [] }) => {
     }
   };
 
-  
+
   const exportPdf = async () => {
     try {
       const res = await api.exportPdf(selectedIds);
-      // When successful, res.data should be a Blob (application/pdf)
-      // If server returns an error, our interceptor will normalize it and throw instead
-      
+
+
       downloadBlob(res.data, 'prompts.pdf');
     } catch (e) {
-      // If interceptor couldn't parse, try to read blob text fallback
+
       let msg = e?.data?.message || e?.message || 'Failed to export PDF';
-      // Some servers return Blob error bodies
+
       if (!e?.data?.message && e?.data instanceof Blob) {
         try {
           const text = await e.data.text();
